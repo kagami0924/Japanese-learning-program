@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "健康新聞 -";
+}
+@section style{
+    <style>
+        figure {
+            width: 125px;
+            height: 75px;
+            float: left;
+            overflow: hidden;
+        }
+
+        .newsimg {
+            width: 100%;
+            height: auto;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        hr {
+            clear: left;
+            border: 1px dotted;
+        }
+
+        article {
+            margin-top: 50px;
+        }
+
+        dd {
+            margin-left: 150px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+}
+<div class="nav nav-pills flex-column flex-sm-row" style="background-color: lightblue;">
+    <a class="flex-sm-fill text-sm-center nav-link" style="color: black; padding:30px" href="/News/NewsIndex">最新頭條</a>
+    <a class="flex-sm-fill text-sm-center nav-link" style="color: black; padding:30px" href="/News/TheBusinessNews">商務</a>
+    <a class="flex-sm-fill text-sm-center nav-link" style="color: black; padding:30px" href="/News/TheEntertainmentNews">娛樂</a>
+    <a class="flex-sm-fill text-sm-center nav-link" style="color: black; padding:30px" href="/News/TheHealthNews">健康</a>
+    <a class="flex-sm-fill text-sm-center nav-link" style="color: black; padding:30px" href="/News/TheScienceNews">科學</a>
+    <a class="flex-sm-fill text-sm-center nav-link" style="color: black; padding:30px" href="/News/TheSportsNews">運動</a>
+    <a class="flex-sm-fill text-sm-center nav-link" style="color: black; padding:30px" href="/News/TheTechnologyNews">科技</a>
+</div>
+<main>
+    <article>
+        <header style="border-bottom:2px solid black ; " class="mb-4">
+            <h1>
+                最新健康新聞頭條一覽
+            </h1>
+        </header>
+        <section>
+            <div class="content-item">
+                <ul class="content-list">
+                </ul>
+
+            </div>
+        </section>
+    </article>
+</main>
+@section scripts{
+    <script>
+        var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0]) / 1;
+
+        $(".content-list").on("click", ".test", function () {
+            //console.log($(this).attr("id").slice(3))
+
+            if (NowMember == 0) {
+                alert('請先登入會員');
+            }
+            else {
+                var x = $(this).attr("id").slice(3);
+                console.log(x);
+                console.log($(`#news${x}`).find($("h4")).text())
+                console.log($(`#news${x}`).find($("time")).text())
+                console.log($(`#news${x} a`).attr("href"))
+
+                $.ajax({
+                    url: "/News/CollectNews",
+                    type: "POST",
+                    data: {
+                        "NewsTitle": $(`#news${x}`).find($("h4")).text(),
+                        "NewsDate": $(`#news${x}`).find($("time")).text(),
+                        "NewsURL": $(`#news${x} a`).attr("href"),
+                        "MemberID": NowMember
+                    },
+                    success: function (result) {
+
+                        console.log(result);
+                    }
+                });
+            }
+
+        })
+
+        //var url = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=008be573b17348eaa89987914f540fee' //(盈瑭)
+        var url = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=7dd848b11e724260ba2537d73cdf565f'  //(鈞鴻)
+        //var url = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=f1ccf7976f7f470da851de29904beffd'    // (堯清)
+        //var url = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=f1cc53dcde55ddb64915850da22484b440e7'(小焰)
+        //var url = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=93f017309b0f46389a123ed33ee4e15e'(緯真)
+        //var url = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=620cb56614a347f994cd9d96f89a5b29'(靜瑩)
+        //var url = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=1fa512f390d14b20967259a32caec462 '  //(宗穎 )保留DEMO用
+
+        fetch(url, { method: 'get' })
+            .then(function (response) {
+                return response.json();
+            }).then(function (result) {
+
+                var articles = result.articles;
+                //console.log(articles);
+
+                var el = document.querySelector(".content-list");
+                var dataLen = articles.length;
+                var str = "";
+
+                for (var i = 0; i < dataLen; i++) {
+                    if (articles[i].urlToImage == null) {
+                        articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg";
+                    }
+                    var date = new Date(articles[i].publishedAt);
+                    //console.log(date.toLocaleString());
+
+                    var content = "<li><dl><dt><a href=" + articles[i].url + " target=_blank style= text-decoration:none; ><figure>"
+                        + `<img class="newsimg" src = "${articles[i].urlToImage}" alt = "${articles[i].title}" >`
+                        + "</img></figure></a ></dt > "
+                        + "<dd> <a href=" + articles[i].url + " target=_blank>"
+                        + "<h4> " + articles[i].title + "</h4>"
+                        + "<time>" + date.toLocaleString() + "</time>"
+                        + " </a >&emsp;<input class=\"test btn btn-danger\" type=\"button\" id=\"btn" + i + "\" value=\"加入收藏\"/></dd ></dl ></li > <hr /> ";
+
+
+                    str += content;
+
+
+
+                }
+                el.innerHTML = str;
+            });
+
+    </script>
+}

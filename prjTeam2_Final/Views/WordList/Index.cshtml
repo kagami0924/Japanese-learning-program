@@ -1,0 +1,84 @@
+﻿@model  PagedList.IPagedList<prjTeam2_Final.Models.tN5>
+@{
+    ViewBag.Title = "Index";
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+@section style{
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/N5WordList.css" rel="stylesheet" />
+    }
+
+<h2 style="text-align:center;">N5日文單字庫</h2>
+@using (Html.BeginForm("Index", "WordList", FormMethod.Get))
+{
+    <p style="text-align:center">
+        搜尋單字: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<div class="list-wordlist row">
+    <div class="col-lg-2">
+        <ul class="list-group">
+            <li class="list-group-item" style="list-style-type:none">
+                @Html.ActionLink("N5單字", "Index", "", new { @class = "btn-lg btn-info" })
+            </li>
+            <li class="list-group-item" style="list-style-type:none">
+                @Html.ActionLink("N4單字", "N4Index", "WordListN4N3", "", new { @class = "btn-lg btn-info" })
+            </li>
+            <li class="list-group-item" style="list-style-type:none">
+                @Html.ActionLink("N3單字", "N4Index", "WordListN4N3", "", new { @class = "btn-lg btn-info" })
+            </li>
+            <li class="list-group-item" style="list-style-type:none">
+                @Html.ActionLink("N2單字", "Index", "", new { @class = "btn-lg btn-info" })
+            </li>
+            <li class="list-group-item" style="list-style-type:none">
+                @Html.ActionLink("N1單字", "Index", "WordList","", new { @class = "btn-lg btn-info" })
+            </li>
+        </ul>
+        <div class="createword">@Html.ActionLink("新增單字", "Create", "", new { @class = "btn-lg btn-primary" })</div>
+    </div>
+    @*單字表*@
+    <table class="table table-striped table-bordered col-10" style="text-align:center">
+        <thead>
+            <tr>
+                <th style="text-align:center">No</th>
+                <th style="text-align:center">日文</th>
+                <th style="text-align:center">中文</th>
+                <th style="text-align:center">假名</th>
+                <th style="text-align:center">種類</th>
+                <th style="text-align:center">編輯</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-md-1">@item.No</td>
+                    <td class="col-md-1">@item.日文</td>
+                    <td class="col-md-1">@item.中文</td>
+                    <td class="col-md-2">@item.假名</td>
+                    <td class="col-md-1">@item.種類</td>
+                    <td class="col-md-2" style="text-align:center">
+                        @Html.ActionLink("修改", "Edit", new { id = item.No }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("刪除", "Delete", new { id = item.No }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?')" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@*PagedList*@
+<div style="text-align: center;">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }),
+new PagedListRenderOptions
+{
+   LinkToFirstPageFormat = "<<第一頁",
+   LinkToPreviousPageFormat = "<上一頁",
+   LinkToNextPageFormat = "下一頁>",
+   LinkToLastPageFormat = "最末頁>>"
+});
+</div>
+
+

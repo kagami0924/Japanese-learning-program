@@ -1,0 +1,1572 @@
+﻿
+@{
+    ViewBag.Title = "ProfileResume";
+}
+
+@section style{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">*@
+    <link href="~/Content/Lapis.css" rel="stylesheet" />
+
+    <style>
+        .DelBtn {
+            background-color: #922932
+        }
+
+        td a {
+            color: #2d3d5a;
+        }
+        .member-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .PreviewImg {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+
+        .list-group-item.active {
+            background-color: #2d3d5a;
+            border-color: #2d3d5a;
+        }
+        /*.card-block img*/
+        .card-img {
+            /*top: 50%;*/
+            margin-top: -36px;
+            width: 100px;
+            height: 100px;
+            border: 3px solid #FFF;
+            border-radius: 50%;
+            float: left;
+            overflow: hidden;
+            /*position: relative;*/
+            /*z-index: 99;*/
+        }
+
+        .card-block .card-title {
+            float: left;
+            margin: 0;
+            margin-left: 0.5em;
+        }
+
+            .card-block .card-title small {
+                display: block;
+            }
+
+        .card-block .card-text {
+            clear: both;
+            padding-top: 0.25em;
+            margin-bottom: 1.5em;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .card-block ul a:hover {
+            text-decoration: none;
+        }
+
+        .card-block ul .profile-stats {
+            color: #777;
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.63em;
+            margin-left: 20px;
+        }
+
+        .card-block ul .profile-value {
+            color: #000;
+            /*font-size: 1.2em;*/
+            font-weight: bold;
+            color: #2F92CA;
+        }
+
+        body {
+            background-color: #F5F8FA;
+        }
+
+        form#new-profile {
+            border-radius: 0.4rem 0.4rem 0 0;
+            padding: 1em;
+            border-bottom: 0.1em solid #CEE4F5;
+            background-color: #EBF4FB;
+        }
+
+        form#new-message {
+            border-radius: 0.4rem 0.4rem 0 0;
+            padding: 1em;
+            border-bottom: 0.1em solid #CEE4F5;
+            background-color: #EBF4FB;
+        }
+
+            form#new-message .input-group-addon {
+                background-color: #FFF;
+            }
+
+        .row .card {
+            margin-top: 2rem;
+        }
+
+        .view {
+            display: block;
+        }
+
+        .noview {
+            display: none;
+        }
+
+
+        ul#feed {
+            margin: 10px;
+        }
+
+            ul#feed li {
+                padding: 1em 1em;
+            }
+
+            ul#feed .feed-avatar {
+                width: 8%;
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            ul#feed .feed-post {
+                width: 50%;
+                display: inline-block;
+                margin-left: 2%;
+            }
+
+                ul#feed .feed-post h5 {
+                    font-weight: bold;
+                    margin-bottom: 0.5rem;
+                }
+
+            ul#feed .action-list {
+                margin-left: 13%;
+                padding-left: 1em;
+            }
+
+                ul#feed .action-list a {
+                    width: 15%;
+                    display: inline-block;
+                }
+
+                    ul#feed .action-list a:hover {
+                        text-decoration: none;
+                    }
+
+                ul#feed .action-list .retweet-count {
+                    padding-left: 0.2em;
+                    font-weight: bold;
+                }
+        /* ===================================
+        版型
+        ===================================*/
+        * {
+            box-sizing: border-box;
+        }
+
+        ul a {
+            display: inline-block;
+            text-decoration: none;
+            color: #666;
+        }
+        /* ===================================
+        布局樣式
+        ===================================*/
+        .menu {
+            max-width: 300px;
+            margin: 0 auto;
+            list-style-type: none;
+            border-radius: 10px;
+            padding: 0;
+            text-align: center;
+        }
+        /* ===================================
+        動態效果
+        ===================================*/
+        .drop-down {
+            position: relative;
+        }
+
+        .submenu {
+            position: relative;
+            opacity: 0;
+            width: 100%;
+            z-index: 8;
+            transition: opacity 0.5s ease;
+        }
+
+        .submenu-item {
+            display: block;
+            height: 0px;
+            overflow: hidden;
+            transition: height 0.5s ease;
+        }
+
+        .drop-down:hover .submenu {
+            opacity: 1;
+        }
+
+        .drop-down:hover .submenu-item {
+            overflow: visible;
+            height: 30px;
+        }
+        /* ===================================
+        視覺樣式
+        ===================================*/
+        .item {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+            .item:hover {
+                background: #ddd;
+            }
+
+        .submenu-item {
+            background: #aaa;
+            color: #eee;
+            width: 100%;
+            padding-left: 20px;
+            line-height: 30px;
+        }
+
+            .submenu-item:hover {
+                background: #2d3d5a;
+                color: #ccc;
+            }
+
+        .now .item {
+            background: #ddd;
+        }
+
+        .now .submenu {
+            opacity: 1;
+        }
+
+        .now .submenu-item {
+            background: #555;
+            overflow: visible;
+            height: 30px;
+        }
+
+        .CustomizeTable {
+            margin-top: 50px;
+        }
+    </style>
+}
+<!--UploadModal-->
+<div class="modal fade" id="UploadModal" tabindex="-1" role="dialog" aria-labelledby="UploadModalLabel" aria-hidden="true">
+    <form id="UploadForm" action="@Url.Action("Upload", "ImportExcel")" method="post" enctype="multipart/form-data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="UploadModal">上傳並匯入資料</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <span>請輸入分類名稱:</span>
+                    <input type="text" class="form-control" id="exl-Category" />
+
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control mt-2" data-trigger="fileinput">
+                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                            <span class="fileinput-filename"></span>
+                        </div>
+                        <span class="input-group-addon btn btn-default btn-file">
+                            <span class="fileinput-new btn list-btn-select">選擇檔案</span>
+                            <span class="fileinput-exists btn list-btn-select">更換檔案</span>
+                            <input type="file" name="file" id="file" />
+                            <a class="input-group-addon btn list-btn-select fileinput-exists" data-dismiss="fileinput">移除檔案</a>
+
+                        </span>
+                    </div>
+
+
+                </div>
+                <div class="modal-body">
+                    <h3>↓↓Excel上傳格式↓↓</h3>
+                    <img src="~/imgs/Excel.png" />
+                </div>
+
+                <div class="modal-footer">
+                    <input type="button" id="ButtonCancel" class="btn btn-default" data-dismiss="modal" value="取消">
+                    <input type="submit" id="ButtonSubmit" name="ButtonSubmit" class="btn list-btn-select" value="上傳檔案">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- UploadModal -->
+<!-- Modal -->
+<div class="modal fade" id="秀出修改貼文的視窗" tabindex="-1" role="dialog" aria-labelledby="秀出修改貼文的視窗的Title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        @*秀出修改貼文的id*@
+        <div id="SHOWPOST" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditPostModal">修改貼文</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+
+                <input id="秀出的發文" type="text" class="秀出的發文 form-control ">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                @*儲存修改的文的按鈕*@
+                <button id="儲存修改的文" type="button" class="SaveEditPost_btn btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-between mt-5">
+        @*//左邊的個人卡片*@
+        <div id="profile" class=" col-md-3 hidden-sm hidden-xs">
+            <div id="ProfileCard">
+            </div>
+            @*//左下的導覽列*@
+            @*<div id="profile-setting-btns" class="card list-group">*@
+        <ul class="menu mt-5">
+            <li class="itembox drop-down">
+                <a class="list-group-item list-group-item-action active" id="發文">自學心得記錄</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="list-group-item list-group-item-action" id="編輯個資">編輯個人資料</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="list-group-item list-group-item-action" id="CreateDiscussList">發表和回覆的文章</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="list-group-item list-group-item-action" id="CollectedNews">已收藏的新聞</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="list-group-item list-group-item-action" id="JoinedEvent">個人行事曆</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="list-group-item list-group-item-action" id="cGrade">個人成績單</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="list-group-item list-group-item-action" id="topic">個人題庫</a>
+                <div class="submenu">
+                    <a class="submenu-item" data-toggle="modal" data-target="#UploadModal">匯入個人題庫</a>
+                </div>
+            </li>
+        </ul>
+            <div class="col-9 test">
+                <div class="row justify-content-center pt-5" id="main-div">
+
+
+                </div>
+            </div>
+            @*</div>*@
+        </div>
+
+        @*//右邊的發文頁面(依照左下的分頁做變動)*@
+        <div id="main" class="col-md-9">
+            <div>
+                <div id="main-post" class="card view">
+                    <div class="container" style="width:500px">
+                        <form id="new-message" style="margin-top: 25px">
+                            <div class="input-group">
+                                <input id="要發的文" type="text" class="form-control" placeholder="今天學日文的新收穫與心得~?">
+                                <button id="btnPost" type="button" class="btn btn-primary">發文</button>
+
+                            </div>
+                            <div id="show" class="feed-post" style="width:400px">
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                @*//右邊的編輯個人資料頁面(依照左下的分頁做變動)*@
+                <div>
+                    <div id="main-edit">
+                        <form id="new-profile"></form>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@*<=========================================個人題庫model============================================>*@
+<div class="modal fade" id="modal-add-topic" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">新增個人題目</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-add-topic">
+                    <label class="mr-3 mt-2">題目:</label><input type="text" id="Question" name="Question" class="form-control" />
+                    <label class="mr-3 mt-2">答案:</label><input type="text" id="Answer" name="Answer" class="form-control" />
+                    <label class="mr-3 mt-2">分類:</label><input type="text" id="Category" name="Category" class="form-control" />
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn at-btn" style="background-color:#777" data-dismiss="modal">取消</button>
+                <button type="button" class="btn at-btn" id="add-topic">新增</button>
+            </div>
+        </div>
+    </div>
+    <div class="demo" id="lapis-demo5">demo</div>
+</div>
+@*-------------------------------日曆Modal------------------------------------*@
+<div id="myModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 個人圖片頁面↓ -->
+<div class="modal fade" id="MemberImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">上傳個人頭像</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row justify-content-center">
+                <div class="PreviewImg"><img class="member-img" /></div>
+            </div>
+            <div class="modal-footer">
+                <form id="img-form">
+                    <label class="btn at-btn" style="width:80px; margin:0">
+                        <input id="Imgupload" style="display:none;" type="file">上傳圖片
+                    </label>
+                    <button type="button" class="btn at-btn" id="Imgsave">儲存</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 個人圖片頁面↑ -->
+@*<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>*@
+<link href="~/Content/fullcalendar-3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar-3.4.0/fullcalendar.print.min.css" rel="stylesheet" media="print" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@section scripts{
+
+    @*<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>*@
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+    @*<script src="~/Scripts/bootbox.js"></script>*@
+    <script src="~/Scripts/jquery.form.min.js"></script>
+    <script src="~/Scripts/project.js"></script>
+    <script src="~/Scripts/project.extends.js"></script>
+    <script src="~/Scripts/project.Test.js"></script>
+    <script src="~/Content/calendar/moment.min.2.18.1.js"></script>
+    <script src="~/Content/fullcalendar-3.4.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+    <script>
+        //<------------------顯示頁面------顯示頁面與登錄身分不符回首頁------------------>
+        var hr = document.location.href.split("/")
+        var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0] / 1)
+        if (hr[hr.length - 1] == NowMember) {
+            $.ajax({
+                url: "/MemberProfile/ShowMember",
+                data: { "MemberID": NowMember },
+                success: function (data) {
+
+                    $(".memberName").text(data[0].MemberName);
+
+                },
+            })
+            $.ajax({
+                url: "/Member/ShowCategory",
+                data: { "MemberID": NowMember },
+                success: function (data) {
+                    if (data.length == 0)
+                        $(".submenu").append(`<a class="submenu-item" id="add-topic">新增題目</a>`)
+                    for (var i = 0; i < data.length; i++) {
+                        $(".submenu").append(`<a class="submenu-item show-topic">${data[i].Category}</a>`)
+
+                    }
+                },
+            })
+
+
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                //title: '壞壞喔',
+                text: '您沒有權限查看此頁面',
+            }).then((result) => {
+                window.location.href = "/Home/Index"
+            });
+        }
+
+        //<------------------左下導覽列的分頁操作------------------>
+        $("#發文").click(function () {
+            $("#main-post").removeClass("noview");
+            $("#main-edit").addClass("noview");
+        });
+        $("#編輯個資").click(function () {
+            $("#main-edit").removeClass("noview");
+            $("#main-post").addClass("noview");
+        });
+
+
+        $(".list-group-item-action").click(function () {
+            $(".list-group-item-action").removeClass("active")
+            $(this).addClass("active")
+        })
+        //<-----------------左上個人頁面卡片的頁面------------------>
+        $(document).ready(() => {
+            $.ajax({
+                url: "/MemberProfile/CardProfile",
+                data: { "MemberID": NowMember },
+                success: function (data) {
+                    $("#ProfileCard").html(`
+                                                <div id="profile-resume" class="card">
+                                                <img class="card-img-top img-responsive" src="/imgs/backgrd.jpg">
+                                                <div class="card-block">
+                                                    <div class="card-img"  data-toggle="modal" data-target="#MemberImg"><img class="member-img"/></div>
+                                                    <h4 class="card-title">
+                                                        ${data.fMemberName}
+                                                        <small>${data.fNickname}</small>
+                                                    </h4>
+                                                     <p class="card-text">努力できるということも
+                                                    <br/>実力のうち。
+                                                    <br/>督促自己努力,
+                                                    <br/>也是一種實力!</p>
+                                                    <ul class="list-inline list-unstyled">
+                                                        <li id="card-comment">
+                                                            <span class="profile-stats">${data.fLivingArea}</span>
+                                                            </li>
+                                                    </ul>
+                                                </div>
+                                            </div>`
+                    )
+                }
+            })
+            刷新();
+        });
+
+        //<-------------------------載入個人圖片------------------------------->
+        setTimeout(function () {
+            $.ajax({
+                url: "/Member/ReImg",
+                data: { "MemberID": NowMember },                
+                cache: false,
+                success: function (data) {
+                    if (data == "null") {
+                        $(".member-img").attr("src", "/MemberImg/DefaultImg.jpg");
+                    }
+                    else {
+                        $(".member-img").attr("src", `${data}`);
+                    }
+                }
+            })
+        }, 100);
+
+        //<-----------------新增發文--------------------------------->
+        $("#btnPost").click(function () {
+            console.log($("#要發的文").val());
+            $.ajax({
+                url: "/MemberProfile/PostDiary",
+                data: { "content": $("#要發的文").val(), "MemberID": NowMember },
+                type: "POST",
+                success: function (data) {
+                    console.log(data);
+                    刷新();
+                    $("#要發的文").val("");
+                }
+            })
+        });
+        //<-----------------刷新--------------------------------->
+        function 刷新() {
+            $.ajax({
+                url: "/MemberProfile/MainProfile",
+                data: { "MemberID": NowMember },
+                success: function (data) {
+                    var txt = "";
+                    for (var i = 0; i < data.length; i++) {
+                        txt += ` <ul id="feed" class="list-unstyled">
+                                                      <li><div class="feed-post" style="width:400px">
+                                                         <h5>
+                                                                 <small> 發佈日期${data[i].fPostDate} </small>
+                                                        </h5>
+                                                          <p id="SHOWPOST${data[i].fPostID}" class=" form-control">${data[i].fPost}</p>
+                                                          </div>
+                                                          <div class="action-list">
+                                                          <button id="EDIT${data[i].fPostID}" data-post="${data[i].fPost}" type="button" class="EditPost_btn btn btn btn-outline-primary" data-toggle="modal" data-target="#秀出修改貼文的視窗">
+                                                          <img src="/imgs/icon-edit.png" />編輯貼文</button>
+                                                     <button id="DEL${data[i].fPostID}" type="button" class="DelPost_btn btn btn-outline-danger"><img src="/imgs/icon-delete.png" />刪除</button>
+                     </div> </li> </ul>
+                                                                            `
+                    }
+                    $("#show").html(txt);
+                }
+            });
+        }
+        //<-----------------刪除發文--------------------------------->
+        $("#show").on('click', '.DelPost_btn', function () {
+            var AA = $(this).attr("id").split('DEL');
+            console.log(AA);
+            $.ajax({
+                url: "/MemberProfile/DeletePost",
+                data: { fPostID: `${AA[1]}` },
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    刷新();
+                },
+            });
+        });
+
+        //<-----------------秀出來修改的文事件--------------------------------->
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+        var BB = "";
+        $("#show").on('click', '.EditPost_btn', (function (event) {
+            console.log(this.dataset);
+            BB = $(this).attr("id").split('EDIT')[1];
+            $('#秀出的發文').val(this.dataset.post);
+
+        }))
+        $("#SHOWPOST").on('click', '.SaveEditPost_btn', function () {
+            console.log(BB);
+            $.ajax({
+                url: "/MemberProfile/EditPost",
+                data: { "fPostID": BB / 1, "fPost": $("#秀出的發文").val() },
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+
+                    刷新();
+                }
+            })
+        })
+        //------------秀出來個人資訊編輯頁面------------
+        $("#編輯個資").click(function () {
+            console.log(NowMember)
+            $.ajax({
+                url: "/MemberProfile/ProfileInfoNew",
+                data: { "MemberID": NowMember },
+                success: function (data) {
+                    $("#main-edit").html(`
+                                          <form id="new-profile"  class="card">
+                                             <div class="settingContent">
+                                             <h3>增加更多的個人資訊</h3>
+                                               <table id="profile_table">
+                                        <tr>
+                                            <td width="185">暱稱</td>
+                                            <td width="500" colspan="2">
+                                                <input type="text" name="fNickname" id="fNickname" class="my-2"
+                                                       style="width: 200px" maxlength="256" value="${data.fNickname}">
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                            <td width="185">性別</td>
+                                            <td width="500" colspan="2">
+                                                 <select name="fGender" id="fGender" class="my-2" >
+                                                 <option hidden>${data.fGender}</option>
+                                                    <option value="男">男</option>
+                                                      <option value="女">女</option>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="185"><span>國籍</span></td>
+                                            <td width="300">
+                                                <select name="fNationality" id="fNationality" class="my-2" value="${data.fNationality}">
+                                                    <option hidden>${data.fNationality}</option>
+                                                    <option value="TW">Taiwan</option>
+                                                    <option value="IS">Iceland</option>
+                                                    <option value="IE">Ireland</option>
+                                                    <option value="AZ">Azerbaijan</option>
+                                                    <option value="AF">Afghanistan</option>
+                                                    <option value="US">United States</option>
+                                                    <option value="VI">Virgin Islands, U.S.</option>
+                                                    <option value="AS">American Samoa</option>
+                                                    <option value="UM">United States Minor Outlying Islands</option>
+                                                    <option value="AE">United Arab Emirates</option>
+                                                    <option value="DZ">Algeria</option>
+                                                    <option value="AR">Argentina</option>
+                                                    <option value="AW">Aruba</option>
+                                                    <option value="AL">Albania</option>
+                                                    <option value="AM">Armenia</option>
+                                                    <option value="AI">Anguilla</option>
+                                                    <option value="AO">Angola</option>
+                                                    <option value="AG">Antigua and Barbuda</option>
+                                                    <option value="AD">Andorra</option>
+                                                    <option value="YE">Yemen</option>
+                                                    <option value="GB">United Kingdom</option>
+                                                    <option value="IO">British Indian Ocean Territory</option>
+                                                    <option value="VG">Virgin Islands, British</option>
+                                                    <option value="IL">Israel</option>
+                                                    <option value="IT">Italy</option>
+                                                    <option value="IQ">Iraq</option>
+                                                    <option value="IR">Iran, Islamic Republic of</option>
+                                                    <option value="IN">India</option>
+                                                    <option value="ID">Indonesia</option>
+                                                    <option value="UG">Uganda</option>
+                                                    <option value="UA">Ukraine</option>
+                                                    <option value="UZ">Uzbekistan</option>
+                                                    <option value="UY">Uruguay</option>
+                                                    <option value="EC">Ecuador</option>
+                                                    <option value="EG">Egypt</option>
+                                                    <option value="EE">Estonia</option>
+                                                    <option value="ET">Ethiopia</option>
+                                                    <option value="ER">Eritrea</option>
+                                                    <option value="SV">El Salvador</option>
+                                                    <option value="AU">Australia</option>
+                                                    <option value="AT">Austria</option>
+                                                    <option value="AX">Åland Islands</option>
+                                                    <option value="OM">Oman</option>
+                                                    <option value="NL">Netherlands</option>
+                                                    <option value="AN">Netherlands Antilles</option>
+                                                    <option value="GH">Ghana</option>
+                                                    <option value="GG">Guernsey</option>
+                                                    <option value="GY">Guyana</option>
+                                                    <option value="KZ">Kazakhstan</option>
+                                                    <option value="QA">Qatar</option>
+                                                    <option value="CA">Canada</option>
+                                                    <option value="CV">Cape Verde</option>
+                                                    <option value="GA">Gabon</option>
+                                                    <option value="CM">Cameroon</option>
+                                                    <option value="GM">Gambia</option>
+                                                    <option value="KH">Cambodia</option>
+                                                    <option value="MP">Northern Mariana Islands</option>
+                                                    <option value="GN">Guinea</option>
+                                                    <option value="GW">Guinea-Bissau</option>
+                                                    <option value="CY">Cyprus</option>
+                                                    <option value="CU">Cuba</option>
+                                                    <option value="GR">Greece</option>
+                                                    <option value="KI">Kiribati</option>
+                                                    <option value="KG">Kyrgyzstan</option>
+                                                    <option value="GT">Guatemala</option>
+                                                    <option value="GP">Guadeloupe</option>
+                                                    <option value="GU">Guam</option>
+                                                    <option value="KW">Kuwait</option>
+                                                    <option value="CK">Cook Islands</option>
+                                                    <option value="GL">Greenland</option>
+                                                    <option value="CX">Christmas Island</option>
+                                                    <option value="GE">Georgia</option>
+                                                    <option value="GD">Grenada</option>
+                                                    <option value="HR">Croatia</option>
+                                                    <option value="KY">Cayman Islands</option>
+                                                    <option value="KE">Kenya</option>
+                                                    <option value="CI">Côte d&#039;Ivoire</option>
+                                                    <option value="CC">Cocos (Keeling) Islands</option>
+                                                    <option value="CR">Costa Rica</option>
+                                                    <option value="KM">Comoros</option>
+                                                    <option value="CO">Colombia</option>
+                                                    <option value="CG">Congo</option>
+                                                    <option value="CD">Congo, the Democratic Republic of the</option>
+                                                    <option value="SA">Saudi Arabia</option>
+                                                    <option value="WS">Samoa</option>
+                                                    <option value="ST">Sao Tome and Principe</option>
+                                                    <option value="BL">Saint Barthélemy</option>
+                                                    <option value="ZM">Zambia</option>
+                                                    <option value="PM">Saint Pierre and Miquelon</option>
+                                                    <option value="SM">San Marino</option>
+                                                    <option value="MF">Saint Martin (French part)</option>
+                                                    <option value="SL">Sierra Leone</option>
+                                                    <option value="DJ">Djibouti</option>
+                                                    <option value="GI">Gibraltar</option>
+                                                    <option value="JE">Jersey</option>
+                                                    <option value="JM">Jamaica</option>
+                                                    <option value="SY">Syrian Arab Republic</option>
+                                                    <option value="SG">Singapore</option>
+                                                    <option value="ZW">Zimbabwe</option>
+                                                    <option value="CH">Switzerland</option>
+                                                    <option value="SE">Sweden</option>
+                                                    <option value="SD">Sudan</option>
+                                                    <option value="SJ">Svalbard and Jan Mayen</option>
+                                                    <option value="ES">Spain</option>
+                                                    <option value="SR">Suriname</option>
+                                                    <option value="LK">Sri Lanka</option>
+                                                    <option value="SK">Slovakia</option>
+                                                    <option value="SI">Slovenia</option>
+                                                    <option value="SZ">Swaziland</option>
+                                                    <option value="SC">Seychelles</option>
+                                                    <option value="GQ">Equatorial Guinea</option>
+                                                    <option value="SN">Senegal</option>
+                                                    <option value="RS">Serbia</option>
+                                                    <option value="KN">Saint Kitts and Nevis</option>
+                                                    <option value="VC">Saint Vincent and the Grenadines</option>
+                                                    <option value="SH">Saint Helena</option>
+                                                    <option value="LC">Saint Lucia</option>
+                                                    <option value="SO">Somalia</option>
+                                                    <option value="SB">Solomon Islands</option>
+                                                    <option value="TC">Turks and Caicos Islands</option>
+                                                    <option value="TH">Thailand</option>
+                                                    <option value="KR">Korea, Republic of</option>
+
+                                                    <option value="TJ">Tajikistan</option>
+                                                    <option value="TZ">Tanzania, United Republic of</option>
+                                                    <option value="CZ">Czech Republic</option>
+                                                    <option value="TD">Chad</option>
+                                                    <option value="CF">Central African Republic</option>
+                                                    <option value="CN">China</option>
+                                                    <option value="TN">Tunisia</option>
+                                                    <option value="KP">Korea, Democratic People&#039;s Republic of</option>
+                                                    <option value="CL">Chile</option>
+                                                    <option value="TV">Tuvalu</option>
+                                                    <option value="DK">Denmark</option>
+                                                    <option value="DE">Germany</option>
+                                                    <option value="TG">Togo</option>
+                                                    <option value="TK">Tokelau</option>
+                                                    <option value="DO">Dominican Republic</option>
+                                                    <option value="DM">Dominica</option>
+                                                    <option value="TT">Trinidad and Tobago</option>
+                                                    <option value="TM">Turkmenistan</option>
+                                                    <option value="TR">Turkey</option>
+                                                    <option value="TO">Tonga</option>
+                                                    <option value="NG">Nigeria</option>
+                                                    <option value="NR">Nauru</option>
+                                                    <option value="NA">Namibia</option>
+                                                    <option value="AQ">Antarctica</option>
+                                                    <option value="NU">Niue</option>
+                                                    <option value="NI">Nicaragua</option>
+                                                    <option value="NE">Niger</option>
+                                                    <option value="EH">Western Sahara</option>
+                                                    <option value="NC">New Caledonia</option>
+                                                    <option value="NZ">New Zealand</option>
+                                                    <option value="NP">Nepal</option>
+                                                    <option value="NF">Norfolk Island</option>
+                                                    <option value="NO">Norway</option>
+                                                    <option value="BH">Bahrain</option>
+                                                    <option value="HT">Haiti</option>
+                                                    <option value="PK">Pakistan</option>
+                                                    <option value="VA">Holy See (Vatican City State)</option>
+                                                    <option value="PA">Panama</option>
+                                                    <option value="VU">Vanuatu</option>
+                                                    <option value="BS">Bahamas</option>
+                                                    <option value="PG">Papua New Guinea</option>
+                                                    <option value="BM">Bermuda</option>
+                                                    <option value="PW">Palau</option>
+                                                    <option value="PY">Paraguay</option>
+                                                    <option value="BB">Barbados</option>
+                                                    <option value="PS">Palestinian Territory, Occupied</option>
+                                                    <option value="HU">Hungary</option>
+                                                    <option value="BD">Bangladesh</option>
+                                                    <option value="TL">Timor-Leste</option>
+                                                    <option value="PN">Pitcairn</option>
+                                                    <option value="FJ">Fiji</option>
+                                                    <option value="PH">Philippines</option>
+                                                    <option value="FI">Finland</option>
+                                                    <option value="BT">Bhutan</option>
+                                                    <option value="BV">Bouvet Island</option>
+                                                    <option value="PR">Puerto Rico</option>
+                                                    <option value="FO">Faroe Islands</option>
+                                                    <option value="FK">Falkland Islands (Malvinas)</option>
+                                                    <option value="BR">Brazil</option>
+                                                    <option value="FR">France</option>
+                                                    <option value="GF">French Guiana</option>
+                                                    <option value="PF">French Polynesia</option>
+                                                    <option value="TF">French Southern Territories</option>
+                                                    <option value="BG">Bulgaria</option>
+                                                    <option value="BF">Burkina Faso</option>
+                                                    <option value="BN">Brunei Darussalam</option>
+                                                    <option value="BI">Burundi</option>
+                                                    <option value="HM">Heard Island and McDonald Islands</option>
+                                                    <option value="VN">Viet Nam</option>
+                                                    <option value="BJ">Benin</option>
+                                                    <option value="VE">Venezuela</option>
+                                                    <option value="BY">Belarus</option>
+                                                    <option value="BZ">Belize</option>
+                                                    <option value="PE">Peru</option>
+                                                    <option value="BE">Belgium</option>
+                                                    <option value="PL">Poland</option>
+                                                    <option value="BA">Bosnia and Herzegovina</option>
+                                                    <option value="BW">Botswana</option>
+                                                    <option value="BO">Bolivia</option>
+                                                    <option value="PT">Portugal</option>
+                                                    <option value="HK">Hong Kong</option>
+                                                    <option value="HN">Honduras</option>
+                                                    <option value="MH">Marshall Islands</option>
+                                                    <option value="MO">Macao</option>
+                                                    <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                                                    <option value="MG">Madagascar</option>
+                                                    <option value="YT">Mayotte</option>
+                                                    <option value="MW">Malawi</option>
+                                                    <option value="ML">Mali</option>
+                                                    <option value="MT">Malta</option>
+                                                    <option value="MQ">Martinique</option>
+                                                    <option value="MY">Malaysia</option>
+                                                    <option value="IM">Isle of Man</option>
+                                                    <option value="FM">Micronesia, Federated States of</option>
+                                                    <option value="ZA">South Africa</option>
+                                                    <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                                    <option value="MM">Myanmar</option>
+                                                    <option value="MX">Mexico</option>
+                                                    <option value="MU">Mauritius</option>
+                                                    <option value="MR">Mauritania</option>
+                                                    <option value="MZ">Mozambique</option>
+                                                    <option value="MC">Monaco</option>
+                                                    <option value="MV">Maldives</option>
+                                                    <option value="MD">Moldova, Republic of</option>
+                                                    <option value="MA">Morocco</option>
+                                                    <option value="MN">Mongolia</option>
+                                                    <option value="ME">Montenegro</option>
+                                                    <option value="MS">Montserrat</option>
+                                                    <option value="JO">Jordan</option>
+                                                    <option value="LA">Lao People&#039;s Democratic Republic</option>
+                                                    <option value="LV">Latvia</option>
+                                                    <option value="LT">Lithuania</option>
+                                                    <option value="LY">Libyan Arab Jamahiriya</option>
+                                                    <option value="LI">Liechtenstein</option>
+                                                    <option value="LR">Liberia</option>
+                                                    <option value="RO">Romania</option>
+                                                    <option value="LU">Luxembourg</option>
+                                                    <option value="RW">Rwanda</option>
+                                                    <option value="LS">Lesotho</option>
+                                                    <option value="LB">Lebanon</option>
+                                                    <option value="RE">Réunion</option>
+                                                    <option value="RU">Russian Federation</option>
+                                                    <option value="WF">Wallis and Futuna</option>
+                                                </select>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="185"><span>居住地區</span></td>
+                                            <td width="300">
+                                                <select name="fLivingArea" id="fLivingArea" class="my-2" value=${data.fLivingArea}>
+                                                     <option hidden>${data.fLivingArea}</option>
+                                                    <option value="基隆市">基隆市</option>
+                                                    <option value="臺北市">臺北市</option>
+                                                    <option value="新北市">新北市</option>
+                                                    <option value="新竹市">新竹市</option>
+                                                    <option value="新竹縣">新竹縣</option>
+                                                    <option value="苗栗縣">苗栗縣</option>
+                                                    <option value="臺中市">臺中市</option>
+                                                    <option value="彰化縣">彰化縣</option>
+                                                    <option value="南投縣">南投縣</option>
+                                                    <option value="嘉義市">嘉義市</option>
+                                                    <option value="嘉義縣">嘉義縣</option>
+                                                    <option value="臺南市">臺南市</option>
+                                                    <option value="高雄市">高雄市</option>
+                                                    <option value="屏東縣">屏東縣</option>
+                                                    <option value="臺東縣">臺東縣</option>
+                                                    <option value="花蓮縣">花蓮縣</option>
+                                                    <option value="宜蘭縣">宜蘭縣</option>
+                                                    <option value="澎湖縣">澎湖縣</option>
+                                                    <option value="金門縣">金門縣</option>
+                                                    <option value="連江縣">連江縣</option>
+                                                    <option value="國際">國際</option>
+                                                </select>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td width="185"><span>職業</span></td>
+
+                                            <td width="300">
+                                                <select name="fOccupation"  class="my-2" value="${data.fOccupation}">
+                     <option hidden>${data.fOccupation}</option>
+                                                    <option value="學生">學生</option>
+                                                    <option value="上班族">上班族</option>
+                                                    <option value="其他">其他</option>
+
+                                                </select>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="185"><span>JLPT日檢程度</span></td>
+                                            <td width="300">
+                                                <select name="fJLPTLevel" value="${data.fJLPTLevel}" class="my-2">
+                                                    <option hidden>${data.fJLPTLevel}</option>
+
+                                                    <option value="N5">N5</option>
+                                                    <option value="N4">N4</option>
+                                                    <option value="N3">N3</option>
+                                                    <option value="N2">N2</option>
+                                                    <option value="N1">N1</option>
+                                                    <option value="NA">還沒有考</option>
+                                                </select>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="185"><span>學習日文的目的</span></td>
+                                            <td>
+                                                    <select name="fGoal" value="${data.fGoal}" class="my-2">
+                                                    <option hidden>${data.fGoal}</option>
+                                                    <option value="興趣">興趣</option>
+                                                    <option value="職場所需">職場所需</option>
+                                                    <option value="觀光所需">觀光所需</option>
+                                                    <option value="學業">學業</option>
+                                                    <option value="增進第二專長">增進第二專長</option>
+
+                                                </select>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="btn btn-info "id="SaveEditProfile_btn" class="my-2">儲存</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+</form>`)
+                },
+            });
+        })
+        //
+        //-------------------編輯+儲存個人資訊------------------------->
+        $("html").on("click", "#SaveEditProfile_btn", function () {
+            var form = document.querySelector("#new-profile");
+            //一定要寫FormData(既定格式)
+            var formdata = new FormData(form);
+            formdata.append("MemberID", NowMember)
+            $.ajax({
+                url: "/MemberProfile/EditProfile",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    console.log("OK")
+                },
+            })
+        })
+
+
+    //<<===================================================================================>>
+
+    $(document).ready(function () {
+        var actionUrls = {
+            Upload: '@Url.Action("Upload", "ImportExcel")',
+            Import: '@Url.Action("Import", "ImportExcel")',
+        };
+
+        project.Test.Initialize(actionUrls);
+    });
+
+    $("#ButtonSubmit").click(function () {
+        document.cookie = `Category=${$("#exl-Category").val()};path=/`
+    })
+
+
+    $("html").on('click', '#add-topic', function () {
+        $('#Category').val("")
+        $("#modal-add-topic").modal("show");
+    })
+    //<-----------------------發表和回覆的文章-------------------------------->
+    $("#CreateDiscussList").click(function () {
+            var txt = "";
+        $.ajax({
+            url: "/Member/MemberDiscussList",
+            data: { "MemberID": NowMember },
+            success: function (data) {
+                $.ajax({
+                    url: "/Member/MemberReDiscussList",
+                    data: { "MemberID": NowMember },
+                    success: function (bata) {
+                        txt += `<div class="CustomizeTable row justify-content-center">
+                                  <table id="datatable" class="table ">
+                                    <thead>
+                                        <tr>
+                                            <th>標題</th><th>讚讚數</th><th>最後編輯時間</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                                `
+                        for (var i = 0; i < data.length; i++) {
+                            var t = new Date(parseInt(data[i].UpTime.slice(6, -2)))
+                            var time = `${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                            txt += `<tr><td style="text-align:left"><a href="/Discuss/vDiscussSingle/${data[i].ArticleID}">【${data[i].Category}】${data[i].Title}</a></td><td>${data[i].LoveCount}</td><td>${time}</td></tr>`
+
+                        }
+                        for (var i = 0; i < bata.length; i++) {
+                            var t = new Date(parseInt(bata[i].UpTime.slice(6, -2)))
+                            var time = `${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                            txt += `<tr><td style="text-align:left"><a href="/Discuss/vDiscussSingle/${bata[i].ArticleID}">RE:【${bata[i].Category}】${bata[i].Title}</a></td><td>${bata[i].LoveCount}</td><td>${time}</td></tr>`
+                        }
+                        $("#main").html(txt)
+                        $('#datatable').DataTable({
+                            "bPaginate": true, // 顯示換頁
+                            "searching": true, // 顯示搜尋
+                            "info": false, // 顯示資訊
+                            "fixedHeader": true, // 標題置頂
+                            "bAutoWidth": false,
+                            "aoColumns": [
+                                { sWidth: '600' },
+                                { sWidth: '70' },
+                                { sWidth: '150' }
+                            ],
+                            "dom": `<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>
+                                <'row'<'col-sm-12'tr>>
+                                <'row'<'col-sm-12 col-md-7'p>>`,
+                            "language": {
+                                processing: "處理中...",
+                                loadingRecords: "載入中...",
+                                lengthMenu: "顯示 _MENU_ 項結果",
+                                zeroRecords: "沒有符合的結果",
+                                info: "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                                infoEmpty: "顯示第 0 至 0 項結果，共 0 項",
+                                infoFiltered: "(從 _MAX_ 項結果中過濾)",
+                                search: "搜尋:",
+                                paginate: {
+                                    first: "第一頁",
+                                    previous: "上一頁",
+                                    next: "下一頁",
+                                    last: "最後一頁"
+                                },
+                                aria: {
+                                    sortAscending: ": 升冪排列",
+                                    sortDescending: ": 降冪排列"
+                                }
+                            }
+                        });
+                    },
+                })
+            },
+        })
+    })
+    
+    //<----------------顯示個人題庫--------------->
+        function ShowTopic(Category) {
+            $.ajax({
+                url: "/Member/ShowTopic",
+                data: { "Category": Category, "MemberID": NowMember },
+                success: function (data) {
+                    var txt = ""
+                    txt += `<div class="CustomizeTable row justify-content-center">
+                            <div class="col-12" style="text-align:center"><div style="font-size:36pt;" id="CategoryName">${data[0].Category}</div><div class="btn at-btn rename" style="width:70px;">重新命名</div></div>
+                        <table id="datatable" class="table ">
+                            <thead style="text-align:center;">
+                                <tr>
+                                    <th>題目</th><th>答案</th><th><a class="btn at-btn add-topic" no="${data[0].Category}" style="width:70px;" data-toggle="modal" data-target="#modal-add-topic">新增題目</a></th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align:center;">
+                        `
+                    for (var i = 0; i < data.length; i++) {
+                        txt += `
+                            <tr>
+                                <td>${data[i].Question}</td>
+                                <td>${data[i].Answer}</td>
+                                <td>
+                                    <a class="btn at-btn edit-topic" no="${data[i].No}" data-toggle="modal" data-target="#modal-add-topic">編輯</a>
+                                    <a class="btn at-btn del-topic" no="${data[i].No}">刪除</a>
+                                </td>
+                            </tr>
+                            `
+                    }
+                    txt += `
+                            </tbody>
+                        </table>
+                    </div>
+                        `
+                    $("#main").html(txt)
+                    $('#datatable').DataTable({
+                        "bPaginate": true, // 顯示換頁
+                        "searching": true, // 顯示搜尋
+                        "info": false, // 顯示資訊
+                        "fixedHeader": true, // 標題置頂
+                        "bSort": false,
+                        "bAutoWidth": false,
+                        "aoColumns": [
+                            { sWidth: '300' },
+                            { sWidth: '300' },
+                            { sWidth: '100' }
+                        ],
+                        "dom": `<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>
+                                <'row'<'col-sm-12'tr>>
+                                <'row'<'col-sm-12 col-md-7'p>>`,
+                        "language": {
+                            processing: "處理中...",
+                            loadingRecords: "載入中...",
+                            lengthMenu: "顯示 _MENU_ 項結果",
+                            zeroRecords: "沒有符合的結果",
+                            info: "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                            infoEmpty: "顯示第 0 至 0 項結果，共 0 項",
+                            infoFiltered: "(從 _MAX_ 項結果中過濾)",
+                            search: "搜尋:",
+                            paginate: {
+                                first: "第一頁",
+                                previous: "上一頁",
+                                next: "下一頁",
+                                last: "最後一頁"
+                            },
+                            aria: {
+                                sortAscending: ": 升冪排列",
+                                sortDescending: ": 降冪排列"
+                            }
+                        }
+                    });
+
+                },
+            })
+        }
+
+        $(".submenu").on('click', ".show-topic", function () {
+            ShowTopic($(this).text());
+            $(".list-group-item-action").removeClass("active")
+            $(this).parent().parent().find(".list-group-item-action").addClass("active")
+
+        })
+
+        //<------------------------更改分類名字-------------------------------->
+        var OldCategory = "";
+        $("#main").on('click', '.rename', function () {
+            OldCategory = $("#CategoryName").text();
+            $("#CategoryName").attr("contentEditable", "true")
+            $("#CategoryName").focus();
+            $(this).text("完成").removeClass("rename").addClass("rename-ok");
+        })
+        $("#main").on('click', '.rename-ok', function () {
+            $("#CategoryName").attr("contentEditable", "false")
+            $(this).text("重新命名").removeClass("rename-ok").addClass("rename");
+            $.ajax({
+                url: "/Member/ReCategoryName",
+                data: { "Category": $("#CategoryName").text(), "MemberID": NowMember, "OldCategory": OldCategory},
+            })
+        })
+        //<------------------------新增個人題目-------------------------------->
+        var TopicID=0
+        $("#main").on('click', '.add-topic', function () {
+            $("#Category").val($("#CategoryName").text());
+            TopicID=0
+        })
+        $("#lapis-demo5").click(function () {
+            $("#Question").val(`さいきんは　[きもち]の　いいてんきが　つづいて　います`);
+            $("#Answer").val("気持ち");
+        })
+
+         //<------------------------新增編輯(儲存)個人題目------------------------------->
+        $("#add-topic").click(function () {
+            var form = document.querySelector("#form-add-topic");
+            var formdata = new FormData(form);
+            var CategoryName = $("#Category").val();
+            formdata.append("MemberID", NowMember)
+            formdata.append("No", TopicID)
+            $.ajax({
+                url: "/Member/CreateTopic",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    $("#modal-add-topic").modal("hide");
+                    ShowTopic(CategoryName);
+                }
+            })
+        })
+        //<------------------------編輯個人題目-------------------------------->
+        $("#main").on('click', '.edit-topic', function () {
+            $.ajax({
+                url: "/Member/ReturnTopic",
+                data: { "No": $(this).attr("no")/1 },
+                success: function (data) {
+                    console.log(data)
+                    $("#Category").val($("#CategoryName").text());
+                    $("#Question").val(data[0].Question);
+                    $("#Answer").val(data[0].Answer);
+                },
+            })
+            TopicID = $(this).attr("no")/1
+        })
+        //<------------------------刪除個人題目-------------------------------->
+        $("#main").on('click', '.del-topic', function () {
+            var thebtn = $(this)
+            Swal.fire({
+                title: '確定要刪除嗎?',
+                text: "刪除後無法復原喔!?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '確定'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        '刪除成功',
+                        '題目已刪除完成',
+                        'success'
+                    )
+                    $.ajax({
+                        url: "/Member/DelTopic",
+                        data: { "No": $(this).attr("no") / 1 },
+                        success: function () {
+                            thebtn.parents("tr").remove();
+                        }
+                    })
+                }
+            })
+        })
+
+        //<-------------預覽----------------->
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(".PreviewImg>img").attr("src", e.target.result);
+                }
+                reader.readAsDataURL(input.files[0])
+            }
+        }
+        $("#Imgupload").change(function () {
+            readURL(this)
+        })
+
+
+
+        //<-----------上傳儲存圖片----------->
+        $("#Imgsave").click(function () {
+            var formdata = new FormData(document.querySelector("#img-form"));
+            formdata.append("photo", $("#Imgupload").get(0).files[0])
+            $.ajax({
+                url: "/Member/Imgupload",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    $("#MemberImg").modal('hide')
+                    $(".member-img").attr("src",data)
+                },
+            })
+        })
+        //<<<=========================================================================>>
+        /*<---------------------顯示收藏新聞---------------->*/
+        $("#CollectedNews").click(function () {
+            getnews();
+        })
+
+        function getnews() {
+            $.ajax({
+                type: "POST",
+                url: "/News/GetCollectsdNews",
+                data: { "MemberID": NowMember },
+                success: function (news) {
+                    console.log(news);
+
+                    var collectcontent = `<div style="margin-top: 30px;" id='NewTestDiv'><table style="border-top:3px #FFD382 solid;border-bottom:3px #82FFFF solid;" cellpadding="10" border='0' id='tb'><thead><tr><th>新聞標題</th><th>新聞時間</th><th>功能</th></tr></thead><tbody>`;
+
+                    for (var i = 0; i < news.length; i++) {
+                        collectcontent += `<tr><td style="padding-right:10px"><a href="${news[i].NewsURL}" target=_blank>${news[i].NewsTitle}</a></td><td style="padding-right:10px">${news[i].NewsDate}</td><td style="padding-right:10px"><button class="btn  DelBtn" id="${news[i].fId}">Delete</button></td></tr>`
+                    }
+                    collectcontent += "</tbody></table></div>";
+                    $("#main").html(collectcontent);
+                    console.log(collectcontent);
+                }
+            })
+        }
+
+        //----------------Del-----------------------------
+
+        $("html").on("click", ".DelBtn", function () {
+            var x = $(this).attr("id");
+            console.log(x);
+            Swal.fire({
+                title: '確定刪除嗎?',
+                text: "刪除後無法復原!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        '刪除成功!',
+                        '已刪除此新聞.',
+                        'success'
+                    )
+                    $.ajax({
+                        type: "POST",
+                        url: "/News/DeleteCollectionNews",
+                        data: { "NewsID": x },
+                        success: function () {
+                            getnews();
+                        }
+                    })
+                }
+            })
+        })
+        //------------------------------個人成績單------------------------------------------
+        $("#cGrade").click(function () {
+            $.ajax({
+                url: "/JPquestion/GradeToProfile",
+                data: { "MemberID": NowMember },  //KEY是名字 呼叫用KEY 
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    let xxt = `<div style="margin-top:40px"><table class="table table-borderless">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">測驗時間</th>
+      <th scope="col">測驗等級</th>
+      <th scope="col">測驗分數</th>
+    </tr>
+  </thead>
+  <tbody>`
+                    for (let i = 0; i < data.length; i++) {
+                        
+                            xxt += `<tr>
+        <th scope="row">${i + 1}</th>
+        <td>${data[i].Ctime}</td>
+        <td>${data[i].Clevel}</td>
+        <td>${data[i].Cgrade}</td>
+    </tr>`
+                       
+                        
+                    };
+                    xxt += `</tbody>
+</table></div>`
+                    $("#main").html(xxt);
+                },
+            });
+        });
+        //-------------------------個人行事曆------------------------------
+        $("#JoinedEvent").click(function () {
+            var MemberID = NowMember;
+
+
+
+            $("#main").html(`<div id="pcalendar" style="margin-top:30px"></div>`);
+
+            FetchEventAndRenderCalendar(MemberID);
+        })
+
+        function FetchEventAndRenderCalendar(MemberID) {
+            events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Calendar/GetJoinedEvents",
+                data: { "MemberID": MemberID },
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            eventID: v.EventID,
+                            title: v.Title,
+                            type: v.Type,
+                            place: v.Place,
+                            description: v.Description,
+                            start: moment(v.Start),
+                            end: moment(v.end),
+                            color: v.ThemeColor,
+                            creater: v.CreaterID
+                        });
+                    })
+                    console.log(events);
+                    GenerateCalendar(events);
+                },
+                error: function (error) {
+                    Swal.fire('讀取失敗，請稍後再試或連繫專員');
+                }
+            })
+        }
+        function GenerateCalendar(events) {
+            $('#pcalendar').fullCalendar('destroy');
+            $('#pcalendar').fullCalendar({
+                contentHeight: 500,
+                defaultDate: new Date(),
+                timeFormat: 'h(:mm)a',
+                monthNames: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                monthNamesShort: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+                dayNamesShort: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
+                firstDay: 1,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                buttonText: {
+                    today: '本日',
+                    week: '週',
+                    month: '月',
+                    day: '日'
+                },
+                eventLimit: true,
+                eventColor: '#378006',
+                events: events,
+                eventClick: function (calEvent, jsEvent, view) {
+                    console.log(calEvent);
+                    selectedEvent = calEvent;
+                    $('#myModal #eventTitle').text(calEvent.title);
+                    var $description = $('<div/>');
+                    $description.append($('<p/>').html(`<input type="hidden" id="txtEventId" value="${calEvent.eventID}"><b>活動類型：</b>` + calEvent.type));
+                    $description.append($('<p/>').html('<b>開始時間：</b>' + calEvent.start.format("YYYY-MM-DD HH:mm A")));
+                    $description.append($('<p/>').html('<b>結束時間：</b>' + calEvent.end.format("YYYY-MM-DD HH:mm A")));
+                    $description.append($('<p/>').html('<b>活動地點：</b>' + calEvent.place));
+                    $description.append($('<p/>').html('<b>活動簡介：</b>' + calEvent.description));
+                    $('#myModal #pDetails').empty().html($description);
+                    //console.log(NowMember == 0)
+                    //console.log(NowMember != calEvent.creater)
+                    //if (NowMember == 0 || NowMember != calEvent.creater) {
+                    //    $('.Editbtns').hide();
+                    //}
+                    //else {
+                    //    $('.JoinEvent').hide();
+                    //}
+
+                    $('#myModal').modal();
+                },
+                selectable: true,
+                select: function (start, end) {
+                    selectedEvent = {
+                        eventID: 0,
+                        title: '',
+                        place: '',
+                        description: '',
+                        start: start,
+                        end: end,
+                        color: ''
+                    };
+                    openAddEditForm();
+                    $('#calendar').fullCalendar('unselect');
+                },
+                editable: false,
+            })
+        }
+
+
+    </script>
+}
+

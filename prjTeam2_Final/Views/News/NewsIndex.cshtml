@@ -1,0 +1,904 @@
+﻿
+@{
+    ViewBag.Title = "新聞時事 -";
+}
+@section style{
+    <link href="~/Content/News-style.css" rel="stylesheet" />
+
+    <style>
+        a:hover {
+            text-decoration: none;
+        }
+
+        .right-menu {
+            list-style: none outside none;
+            margin-top: 50px;
+            position: fixed;
+            right: 70px;
+            z-index: 99;
+        }
+
+        .right-menu-btn {
+            border: medium none;
+            clear: both;
+            margin: 0 0 15px;
+            padding-bottom: 0;
+            white-space: nowrap;
+        }
+
+        .list-menu {
+            width: 50px;
+            line-height: 50px;
+            text-align: center;
+            text-shadow: none;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;
+            color: #fff;
+            margin-bottom: 1em;
+            background: url('/imgs/News/point.png') repeat;
+            float: left;
+        }
+    </style>
+}
+<div class="index">
+    <div class="container">
+        <div>
+            <ul class="right-menu">
+                <li class="right-menu-btn">
+                    <a class="list-menu" id="btn1" href="#">頭條</a>
+                </li>
+                <li class="right-menu-btn">
+                    <a class="list-menu" id="btn2" href="#">商務</a>
+                </li>
+                <li class="right-menu-btn">
+                    <a class="list-menu" id="btn3" href="#">娛樂</a>
+                </li>
+                <li class="right-menu-btn">
+                    <a class="list-menu" id="btn4" href="#">健康</a>
+                </li>
+                <li class="right-menu-btn">
+                    <a class="list-menu" id="btn5" href="#">科學</a>
+                </li>
+                <li class="right-menu-btn">
+                    <a class="list-menu" id="btn6" href="#">運動</a>
+                </li>
+                <li class="right-menu-btn">
+                    <a class="list-menu" id="btn7" href="#">科技</a>
+                </li>
+            </ul>
+
+            <div id="main-container">
+                <div>
+                    <div id="main">
+                        <div style="height: 30px;">
+                        </div>
+                        <div>
+                            <h2 style="border-bottom:2px solid black;">
+                                頭條新聞
+                            </h2>
+                        </div>
+
+                        <div>
+                            <article>
+                                <section>
+                                    <div class="content-header" style="height:250px; margin-bottom:30px;">
+                                        <figure style="width:500px;float:left">
+                                            <a id="FirstNewsPicURL" href="" target="_blank">
+                                                <img id="FirstTitlePicImg" src="" alt="此新聞無照片"
+                                                     style="float: left; width: 470px;height:250px ">
+                                            </a>
+                                        </figure>
+                                        <div>
+                                            <a id="FirstNewsTitleURL" href="" target="_blank">
+                                                <h3 style="margin-left: 150px;text-align:left" id="FirstNewsTitle">
+                                                </h3>
+                                            </a>
+                                            <time id="FirstNewsTime" style="text-align:right;">
+
+
+                                            </time>
+                                        </div>
+                                    </div>
+                                    <div style="clear: left;" id="subNews">
+
+                                    </div>
+                                    <div style="height:10px">
+
+                                    </div>
+                                    <div style="border-bottom:1px solid black;">
+                                        <p style="text-align: right;">
+                                            <a href="/News/TheLastNews" target="_blank">
+                                                <i><img src="~/imgs/News/moreicon.png" /></i>更多頭條新聞
+                                            </a>
+                                        </p>
+                                    </div>
+                                </section>
+                            </article>
+                        </div>
+                    </div>
+                    <div id="Second">
+                        <div style="height: 50px;">
+                        </div>
+                        <div>
+                            <h2 style="border-bottom:2px solid black;">
+                                商務新聞
+                            </h2>
+                        </div>
+                        <div>
+                            <article>
+                                <section>
+                                    <div class="content-header" style="height:250px; margin-bottom:30px;">
+                                        <figure style="width:500px;float:left">
+                                            <a id="SecondNewsPicURL" href="" target="_blank">
+                                                <img id="SecondTitlePicImg" src="" alt="此新聞無照片"
+                                                     style="float: left; width: 470px;height:250px ">
+                                            </a>
+                                        </figure>
+                                        <div>
+                                            <a id="SecondNewsTitleURL" href="" target="_blank">
+                                                <h3 style="margin-left: 150px;text-align:left" id="SecondNewsTitle">
+                                                </h3>
+                                            </a>
+                                            <time id="SecondNewsTime" style="text-align:right;">
+
+
+                                            </time>
+                                        </div>
+                                    </div>
+                                    <div style="clear: left;" id="subBSNews">
+
+                                    </div>
+                                    <div style="height:10px">
+
+                                    </div>
+                                    <div style="border-bottom:1px solid black;">
+                                        <p style="text-align: right;">
+                                            <a href="/News/TheBusinessNews" target="_blank">
+                                                <i><img src="~/imgs/News/moreicon.png" /></i>更多商業新聞
+                                            </a>
+                                        </p>
+                                    </div>
+                                </section>
+                            </article>
+                        </div>
+                    </div>
+                    <div id="Third">
+                        <div style="height: 50px;">
+                        </div>
+                        <div>
+                            <h2 style="border-bottom:2px solid black;">
+                                娛樂新聞
+                            </h2>
+                        </div>
+                        <div>
+                            <article>
+                                <section>
+                                    <div class="content-header" style="height:250px;margin-bottom:30px;">
+                                        <figure style="width:500px;float:left">
+                                            <a id="ThirdNewsPicURL" href="" target="_blank">
+                                                <img id="ThirdTitlePicImg" src="" alt="此新聞無照片"
+                                                     style="float: left; width: 470px;height:250px ">
+                                            </a>
+                                        </figure>
+                                        <div>
+                                            <a id="ThirdNewsTitleURL" href="" target="_blank">
+                                                <h3 style="margin-left: 150px;text-align:left" id="ThirdNewsTitle">
+                                                </h3>
+                                            </a>
+                                            <time id="ThirdNewsTime" style="text-align:right;">
+
+
+                                            </time>
+                                        </div>
+                                    </div>
+                                    <div style="clear: left;" id="subETNews">
+
+                                    </div>
+                                    <div style="height:10px">
+
+                                    </div>
+                                    <div style="border-bottom:1px solid black;">
+                                        <p style="text-align: right;">
+                                            <a href="/News/TheEntertainmentNews" target="_blank">
+                                                <i><img src="~/imgs/News/moreicon.png" /></i>更多娛樂新聞
+                                            </a>
+                                        </p>
+                                    </div>
+                                </section>
+                            </article>
+                        </div>
+                    </div>
+                    <div id="Fourth">
+                        <div style="height: 50px;">
+                        </div>
+                        <div>
+                            <h2 style="border-bottom:2px solid black;">
+                                健康新聞
+                            </h2>
+                        </div>
+                        <div>
+                            <article>
+                                <section>
+                                    <div class="content-header" style="height:250px;margin-bottom:30px;">
+                                        <figure style="width:500px;float:left">
+                                            <a id="FourthNewsPicURL" href="" target="_blank">
+                                                <img id="FourthTitlePicImg" src="" alt="此新聞無照片"
+                                                     style="float: left; width: 470px;height:250px ">
+                                            </a>
+                                        </figure>
+                                        <div>
+                                            <a id="FourthNewsTitleURL" href="" target="_blank">
+                                                <h3 style="margin-left: 150px;text-align:left" id="FourthNewsTitle">
+                                                </h3>
+                                            </a>
+                                            <time id="FourthNewsTime" style="text-align:right;">
+
+
+                                            </time>
+                                        </div>
+                                    </div>
+                                    <div style="clear: left;" id="subHLNews">
+
+                                    </div>
+                                    <div style="height:10px">
+
+                                    </div>
+                                    <div style="border-bottom:1px solid black;">
+                                        <p style="text-align: right;">
+                                            <a href="/News/TheHealthNews" target="_blank">
+                                                <i><img src="~/imgs/News/moreicon.png" /></i>更多健康相關新聞
+                                            </a>
+                                        </p>
+                                    </div>
+                                </section>
+                            </article>
+                        </div>
+                    </div>
+                    <div id="Fifth">
+                        <div style="height: 50px;">
+                        </div>
+                        <div>
+                            <h2 style="border-bottom:2px solid black;">
+                                科學新聞
+                            </h2>
+                        </div>
+                        <div>
+                            <article>
+                                <section>
+                                    <div class="content-header" style="height:250px;margin-bottom:30px;">
+                                        <figure style="width:500px;float:left">
+                                            <a id="FifthNewsPicURL" href="" target="_blank">
+                                                <img id="FifthTitlePicImg" src="" alt="此新聞無照片"
+                                                     style="float: left; width: 470px;height:250px ">
+                                            </a>
+                                        </figure>
+                                        <div>
+                                            <a id="FifthNewsTitleURL" href="" target="_blank">
+                                                <h3 style="margin-left: 150px;text-align:left" id="FifthNewsTitle">
+                                                </h3>
+                                            </a>
+                                            <time id="FifthNewsTime" style="text-align:right;">
+
+
+                                            </time>
+                                        </div>
+                                    </div>
+                                    <div style="clear: left;" id="subSCNews">
+
+                                    </div>
+                                    <div style="height:10px">
+
+                                    </div>
+                                    <div style="border-bottom:1px solid black;">
+                                        <p style="text-align: right;">
+                                            <a href="/News/TheScienceNews" target="_blank">
+                                                <i><img src="~/imgs/News/moreicon.png" /></i>更多科學相關新聞
+                                            </a>
+                                        </p>
+                                    </div>
+                                </section>
+                            </article>
+                        </div>
+                    </div>
+                    <div id="Sixth">
+                        <div style="height: 50px;">
+                        </div>
+                        <div>
+                            <h2 style="border-bottom:2px solid black;">
+                                運動新聞
+                            </h2>
+                        </div>
+                        <div>
+                            <article>
+                                <section>
+                                    <div class="content-header" style="height:250px;margin-bottom:30px;">
+                                        <figure style="width:500px;float:left">
+                                            <a id="SixthNewsPicURL" href="" target="_blank">
+                                                <img id="SixthTitlePicImg" src="" alt="此新聞無照片"
+                                                     style="float: left; width: 470px;height:250px ">
+                                            </a>
+                                        </figure>
+                                        <div>
+                                            <a id="SixthNewsTitleURL" href="" target="_blank">
+                                                <h3 style="margin-left: 150px;text-align:left" id="SixthNewsTitle">
+                                                </h3>
+                                            </a>
+                                            <time id="SixthNewsTime" style="text-align:right;">
+
+
+                                            </time>
+                                        </div>
+                                    </div>
+                                    <div style="clear: left;" id="subSPNews">
+
+                                    </div>
+                                    <div style="height:10px">
+
+                                    </div>
+                                    <div style="border-bottom:1px solid black;">
+                                        <p style="text-align: right;">
+                                            <a href="/News/TheSportsNews" target="_blank">
+                                                <i><img src="~/imgs/News/moreicon.png" /></i>更多運動相關新聞
+                                            </a>
+                                        </p>
+                                    </div>
+                                </section>
+                            </article>
+                        </div>
+                    </div>
+                    <div id="Seventh">
+                        <div style="height: 50px;">
+                        </div>
+                        <div>
+                            <h2 style="border-bottom:2px solid black;">
+                                科技新聞
+                            </h2>
+                        </div>
+                        <div>
+                            <article>
+                                <section>
+                                    <div class="content-header" style="height:250px;margin-bottom:30px;">
+                                        <figure style="width:500px;float:left">
+                                            <a id="SeventhNewsPicURL" href="" target="_blank">
+                                                <img id="SeventhTitlePicImg" src="" alt="此新聞無照片"
+                                                     style="float: left; width: 470px;height:250px ">
+                                            </a>
+                                        </figure>
+                                        <div>
+                                            <a id="SeventhNewsTitleURL" href="" target="_blank">
+                                                <h2 style="margin-left: 150px;text-align:left" id="SeventhNewsTitle">
+                                                </h2>
+                                            </a>
+                                            <time id="SeventhNewsTime" style="text-align:right;">
+
+
+                                            </time>
+                                        </div>
+                                    </div>
+                                    <div style="clear: left;" id="subTCNews">
+
+                                    </div>
+                                    <div style="height:10px">
+
+                                    </div>
+                                    <div style="border-bottom:1px solid black;">
+                                        <p style="text-align: right;">
+                                            <a href="/News/TheTechnologyNews" target="_blank">
+                                                <i><img src="~/imgs/News/moreicon.png" /></i>更多科技相關新聞
+                                            </a>
+                                        </p>
+                                    </div>
+                                </section>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "https://newsapi.org/v2/top-headlines?country=jp&apiKey=7dd848b11e724260ba2537d73cdf565f",
+                data: "json",
+                async: true,
+                success: function (result) {
+                    var articles = result.articles;
+                    var str = "<div class='row'>";
+
+                    if (articles.length > 1) {
+                        document.getElementById("FirstNewsTitle").innerHTML = articles[0].title;
+                        $("#FirstNewsTitleURL").attr("href", articles[0].url);
+                        $("#FirstNewsPicURL").attr("href", articles[0].url);
+
+                        for (var i = 0; i < 4; i++) {
+                            if (articles[i].urlToImage == null) {
+                                articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg"
+                            }
+
+                            if (i > 0) {
+                                var date = new Date(articles[i].publishedAt);
+
+                                var content =
+                                    "<div class= \"col-md-6 col-lg-4\">" +
+                                    "<div class=\"blog-entry\">" +
+                                    "<a href=" + articles[i].url + "\ class=\"block-20 d-flex align-items-end\" style=\"background-image: url('" + articles[i].urlToImage + "')\">" +
+                                    "<div class=\"meta-date text-center p-2\"><span class='mos'>" + date.toLocaleString('zh-TW', { hour12: false }) +
+                                    "</span></div>" +
+                                    "</a>" +
+                                    "<div class=\"text bg-white p-4\">" +
+                                    "<h3 class=\"heading\" style=\"height:150px;\"><a  href=" + articles[i].url + ">" + articles[i].title + "</a></h3>" +
+                                    "<p style=\"height:150px;text-overflow:ellipsis;overflow:hidden;\">" + articles[i].description + "</p>" +
+                                    "<div class=\"d-flex align-items-center mt-4\">" +
+                                    "<p class=\"mb-0\"><a href=" + articles[i].url + " class=\"btn btn-primary\">全篇 </a></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+                                str += content;
+                            }
+                        }
+                    }
+                    str += "</div>";
+                    $("#subNews").html(str);
+
+                    $("#FirstTitlePicImg").attr("src", articles[0].urlToImage);
+
+                    var FNT = new Date(articles[0].publishedAt);
+                    document.getElementById("FirstNewsTime").innerHTML = FNT.toLocaleString('zh-TW', { hour12: false })
+                },
+                error: function (jqXHR) {
+                    if (jqXHR.status == 404) {
+                        ("#main").html("404 not found");
+                    }
+                },
+            });
+        });
+
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "https://newsapi.org/v2/top-headlines?country=jp&category=business&apiKey=7dd848b11e724260ba2537d73cdf565f",
+                data: "json",
+                async: true,
+                success: function (result) {
+                    var articles = result.articles;
+                    var str = "<div class='row'>";
+
+                    if (articles.length > 1) {
+                        document.getElementById("SecondNewsTitle").innerHTML = articles[0].title;
+                        $("#SecondNewsTitleURL").attr("href", articles[0].url);
+                        $("#SecondNewsPicURL").attr("href", articles[0].url);
+
+                        for (var i = 0; i < 4; i++) {
+                            if (articles[i].urlToImage == null) {
+                                articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg";
+                            }
+
+                            if (i > 0) {
+                                var date = new Date(articles[i].publishedAt);
+
+                                var content =
+                                    "<div class= \"col-md-6 col-lg-4\">" +
+                                    "<div class=\"blog-entry\">" +
+                                    "<a href=" + articles[i].url + "\ class=\"block-20 d-flex align-items-end\" style=\"background-image: url('" + articles[i].urlToImage + "')\">" +
+                                    "<div class=\"meta-date text-center p-2\"><span class='mos'>" + date.toLocaleString('zh-TW', { hour12: false }) +
+                                    "</span></div>" +
+                                    "</a>" +
+                                    "<div class=\"text bg-white p-4\">" +
+                                    "<h3 class=\"heading\ style=\"height:150px;\"><a href=" + articles[i].url + ">" + articles[i].title + "</a></h3>" +
+                                    "<p style=\"height:150px;text-overflow:ellipsis;overflow:hidden;\">" + articles[i].description + "</p>" +
+                                    "<div class=\"d-flex align-items-center mt-4\">" +
+                                    "<p class=\"mb-0\"><a href=" + articles[i].url + " class=\"btn btn-primary\">全篇 </a></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+                                str += content;
+                            }
+                        }
+                    }
+                    str += "</div>";
+                    $("#subBSNews").html(str);
+
+                    $("#SecondTitlePicImg").attr("src", articles[0].urlToImage);
+
+                    var SNT = new Date(articles[0].publishedAt);
+                    document.getElementById("SecondNewsTime").innerHTML = SNT.toLocaleString('zh-TW', { hour12: false })
+                },
+                error: function (jqXHR) {
+                    if (jqXHR.status == 404) {
+                        ("#main").html("404 not found");
+                    }
+                },
+            });
+        });
+
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "https://newsapi.org/v2/top-headlines?country=jp&category=entertainment&apiKey=7dd848b11e724260ba2537d73cdf565f",
+                data: "json",
+                async: true,
+                success: function (result) {
+                    var articles = result.articles;
+                    var str = "<div class='row'>";
+
+                    if (articles.length > 1) {
+                        document.getElementById("ThirdNewsTitle").innerHTML = articles[0].title;
+                        $("#ThirdNewsTitleURL").attr("href", articles[0].url);
+                        $("#ThirdNewsPicURL").attr("href", articles[0].url);
+
+                        for (var i = 0; i < 4; i++) {
+                            if (articles[i].urlToImage == null) {
+                                articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg";
+                            }
+
+                            if (i > 0) {
+                                var date = new Date(articles[i].publishedAt);
+
+                                var content =
+                                    "<div class= \"col-md-6 col-lg-4\">" +
+                                    "<div class=\"blog-entry\">" +
+                                    "<a href=" + articles[i].url + "\ class=\"block-20 d-flex align-items-end\" style=\"background-image: url('" + articles[i].urlToImage + "')\">" +
+                                    "<div class=\"meta-date text-center p-2\"><span class='mos'>" + date.toLocaleString('zh-TW', { hour12: false }) +
+                                    "</span></div>" +
+                                    "</a>" +
+                                    "<div class=\"text bg-white p-4\">" +
+                                    "<h3 class=\"heading\" style=\"height:150px;\"><a href=" + articles[i].url + ">" + articles[i].title + "</a></h3>" +
+                                    "<p style=\"height:150px;text-overflow:ellipsis;overflow:hidden;\">" + articles[i].description + "</p>" +
+                                    "<div class=\"d-flex align-items-center mt-4\">" +
+                                    "<p class=\"mb-0\"><a href=" + articles[i].url + " class=\"btn btn-primary\">全篇 </a></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+                                str += content;
+                            }
+                        }
+                    }
+                    str += "</div>";
+                    $("#subETNews").html(str);
+
+                    $("#ThirdTitlePicImg").attr("src", articles[0].urlToImage);
+
+                    var SNT = new Date(articles[0].publishedAt);
+                    document.getElementById("ThirdNewsTime").innerHTML = SNT.toLocaleString('zh-TW', { hour12: false })
+                },
+                error: function (jqXHR) {
+                    if (jqXHR.status == 404) {
+                        ("#main").html("404 not found");
+                    }
+                },
+            });
+        });
+
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "https://newsapi.org/v2/top-headlines?country=jp&category=health&apiKey=7dd848b11e724260ba2537d73cdf565f",
+                data: "json",
+                async: true,
+                success: function (result) {
+                    var articles = result.articles;
+                    var str = "<div class='row'>";
+
+                    if (articles.length > 1) {
+                        document.getElementById("FourthNewsTitle").innerHTML = articles[0].title;
+                        $("#FourthNewsTitleURL").attr("href", articles[0].url);
+                        $("#FourthNewsPicURL").attr("href", articles[0].url);
+
+                        for (var i = 0; i < 4; i++) {
+                            if (articles[i].urlToImage == null) {
+                                articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg";
+                            }
+
+                            if (i > 0) {
+                                var date = new Date(articles[i].publishedAt);
+
+                                var content =
+                                    "<div class= \"col-md-6 col-lg-4\">" +
+                                    "<div class=\"blog-entry\">" +
+                                    "<a href=" + articles[i].url + "\ class=\"block-20 d-flex align-items-end\" style=\"background-image: url('" + articles[i].urlToImage + "')\">" +
+                                    "<div class=\"meta-date text-center p-2\"><span class='mos'>" + date.toLocaleString('zh-TW', { hour12: false }) +
+                                    "</span></div>" +
+                                    "</a>" +
+                                    "<div class=\"text bg-white p-4\">" +
+                                    "<h3 class=\"heading\" style=\"height:150px;\"><a href=" + articles[i].url + ">" + articles[i].title + "</a></h3>" +
+                                    "<p style=\"height:150px;text-overflow:ellipsis;overflow:hidden;\">" + articles[i].description + "</p>" +
+                                    "<div class=\"d-flex align-items-center mt-4\">" +
+                                    "<p class=\"mb-0\"><a href=" + articles[i].url + " class=\"btn btn-primary\">全篇 </a></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+                                str += content;
+                            }
+                        }
+                    }
+                    str += "</div>";
+                    $("#subHLNews").html(str);
+
+                    $("#FourthTitlePicImg").attr("src", articles[0].urlToImage);
+
+                    var SNT = new Date(articles[0].publishedAt);
+                    document.getElementById("FourthNewsTime").innerHTML = SNT.toLocaleString('zh-TW', { hour12: false })
+                },
+                error: function (jqXHR) {
+                    if (jqXHR.status == 404) {
+                        ("#main").html("404 not found");
+                    }
+                },
+            });
+        });
+
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "https://newsapi.org/v2/top-headlines?country=jp&category=science&apiKey=7dd848b11e724260ba2537d73cdf565f",
+                data: "json",
+                async: true,
+                success: function (result) {
+                    var articles = result.articles;
+                    var str = "<div class='row'>";
+
+                    if (articles.length > 1) {
+                        document.getElementById("FifthNewsTitle").innerHTML = articles[0].title;
+                        $("#FifthNewsTitleURL").attr("href", articles[0].url);
+                        $("#FifthNewsPicURL").attr("href", articles[0].url);
+
+                        for (var i = 0; i < 4; i++) {
+                            if (articles[i].urlToImage == null) {
+                                articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg";
+                            }
+
+                            if (i > 0) {
+                                var date = new Date(articles[i].publishedAt);
+
+                                var content =
+                                    "<div class= \"col-md-6 col-lg-4\">" +
+                                    "<div class=\"blog-entry\">" +
+                                    "<a href=" + articles[i].url + "\ class=\"block-20 d-flex align-items-end\" style=\"background-image: url('" + articles[i].urlToImage + "')\">" +
+                                    "<div class=\"meta-date text-center p-2\"><span class='mos'>" + date.toLocaleString('zh-TW', { hour12: false }) +
+                                    "</span></div>" +
+                                    "</a>" +
+                                    "<div class=\"text bg-white p-4\">" +
+                                    "<h3 class=\"heading\" style=\"height:150px;\"><a href=" + articles[i].url + ">" + articles[i].title + "</a></h3>" +
+                                    "<p style=\"height:150px;text-overflow:ellipsis;overflow:hidden;\">" + articles[i].description + "</p>" +
+                                    "<div class=\"d-flex align-items-center mt-4\">" +
+                                    "<p class=\"mb-0\"><a href=" + articles[i].url + " class=\"btn btn-primary\">全篇 </a></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+                                str += content;
+                            }
+                        }
+                    }
+                    str += "</div>";
+                    $("#subSCNews").html(str);
+
+                    $("#FifthTitlePicImg").attr("src", articles[0].urlToImage);
+
+                    var SNT = new Date(articles[0].publishedAt);
+                    document.getElementById("FifthNewsTime").innerHTML = SNT.toLocaleString('zh-TW', { hour12: false })
+                },
+                error: function (jqXHR) {
+                    if (jqXHR.status == 404) {
+                        ("#main").html("404 not found");
+                    }
+                },
+            });
+        });
+
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "https://newsapi.org/v2/top-headlines?country=jp&category=sports&apiKey=7dd848b11e724260ba2537d73cdf565f",
+                data: "json",
+                async: true,
+                success: function (result) {
+                    var articles = result.articles;
+                    var str = "<div class='row'>";
+
+                    if (articles.length > 1) {
+                        document.getElementById("SixthNewsTitle").innerHTML = articles[0].title;
+                        $("#SixthNewsTitleURL").attr("href", articles[0].url);
+                        $("#SixthNewsPicURL").attr("href", articles[0].url);
+
+                        for (var i = 0; i < 4; i++) {
+                            if (articles[i].urlToImage == null) {
+                                articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg";
+                            }
+
+                            if (i > 0) {
+                                var date = new Date(articles[i].publishedAt);
+
+                                var content =
+                                    "<div class= \"col-md-6 col-lg-4\">" +
+                                    "<div class=\"blog-entry\">" +
+                                    "<a href=" + articles[i].url + "\ class=\"block-20 d-flex align-items-end\" style=\"background-image: url('" + articles[i].urlToImage + "')\">" +
+                                    "<div class=\"meta-date text-center p-2\"><span class='mos'>" + date.toLocaleString('zh-TW', { hour12: false }) +
+                                    "</span></div>" +
+                                    "</a>" +
+                                    "<div class=\"text bg-white p-4\">" +
+                                    "<h3 class=\"heading\" style=\"height:150px;\"><a href=" + articles[i].url + ">" + articles[i].title + "</a></h3>" +
+                                    "<p style=\"height:150px;text-overflow:ellipsis;overflow:hidden;\">" + articles[i].description + "</p>" +
+                                    "<div class=\"d-flex align-items-center mt-4\">" +
+                                    "<p class=\"mb-0\"><a href=" + articles[i].url + " class=\"btn btn-primary\">全篇 </a></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+                                str += content;
+                            }
+                        }
+                    }
+                    str += "</div>";
+                    $("#subSPNews").html(str);
+
+                    $("#SixthTitlePicImg").attr("src", articles[0].urlToImage);
+
+                    var SNT = new Date(articles[0].publishedAt);
+                    document.getElementById("SixthNewsTime").innerHTML = SNT.toLocaleString('zh-TW', { hour12: false })
+                },
+                error: function (jqXHR) {
+                    if (jqXHR.status == 404) {
+                        ("#main").html("404 not found");
+                    }
+                },
+            });
+        });
+
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "https://newsapi.org/v2/top-headlines?country=jp&category=technology&apiKey=7dd848b11e724260ba2537d73cdf565f",
+                data: "json",
+                async: true,
+                success: function (result) {
+                    var articles = result.articles;
+                    var str = "<div class='row'>";
+
+                    if (articles.length > 1) {
+                        document.getElementById("SeventhNewsTitle").innerHTML = articles[0].title;
+                        $("#SeventhNewsTitleURL").attr("href", articles[0].url);
+                        $("#SeventhNewsPicURL").attr("href", articles[0].url);
+
+                        for (var i = 0; i < 4; i++) {
+                            if (articles[i].urlToImage == null) {
+                                articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg";
+                            }
+
+                            if (i > 0) {
+                                var date = new Date(articles[i].publishedAt);
+
+                                var content =
+                                    "<div class= \"col-md-6 col-lg-4\">" +
+                                    "<div class=\"blog-entry\">" +
+                                    "<a href=" + articles[i].url + "\ class=\"block-20 d-flex align-items-end\" style=\"background-image: url('" + articles[i].urlToImage + "')\">" +
+                                    "<div class=\"meta-date text-center p-2\"><span class='mos'>" + date.toLocaleString('zh-TW', { hour12: false }) +
+                                    "</span></div>" +
+                                    "</a>" +
+                                    "<div class=\"text bg-white p-4\">" +
+                                    "<h3 class=\"heading\" style=\"height:150px;\"><a href=" + articles[i].url + ">" + articles[i].title + "</a></h3>" +
+                                    "<p style=\"height:150px;text-overflow:ellipsis;overflow:hidden;\">" + articles[i].description + "</p>" +
+                                    "<div class=\"d-flex align-items-center mt-4\">" +
+                                    "<p class=\"mb-0\"><a href=" + articles[i].url + " class=\"btn btn-primary\">全篇 </a></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+                                str += content;
+                            }
+                        }
+                    }
+                    str += "</div>";
+                    $("#subTCNews").html(str);
+
+                    $("#SeventhTitlePicImg").attr("src", articles[0].urlToImage);
+
+                    var SNT = new Date(articles[0].publishedAt);
+                    document.getElementById("SeventhNewsTime").innerHTML = SNT.toLocaleString('zh-TW', { hour12: false })
+                },
+                error: function (jqXHR) {
+                    if (jqXHR.status == 404) {
+                        ("#main").html("404 not found");
+                    }
+                },
+            });
+        });
+
+        //$("#thelatest").click(function () {
+        //    $.ajax({
+        //        type: "get",
+        //        url: "https://newsapi.org/v2/top-headlines?country=jp&apiKey=008be573b17348eaa89987914f540fee",
+        //        data: "json",
+        //        async: true,
+        //        success: function (result) {
+        //            console.log("thelatest");
+        //            var articles = result.articles;
+        //            var str = " <div class=\"content-item\"><ul class=\"content-list\">";
+
+        //            if (articles.length > 1) {
+        //                for (var i = 0; i < articles.length; i++) {
+        //                    if (articles[i].urlToImage == null) {
+        //                        articles[i].urlToImage = "/imgs/News/SubstitutePic.jpg";
+        //                    }
+
+        //                    var date = new Date(articles[i].publishedAt);
+
+        //                    var content = "<li><dl><dt><a href=" + articles[i].url + " target=_blank style= text-decoration:none; ><figure>"
+        //                        + "<img src = " + articles[i].urlToImage + " alt = " + articles[i].title + " >"
+        //                        + "</img></figure></a ></dt > "
+        //                        + "<dd> <a href=" + articles[i].url + " target=_blank>"
+        //                        + "<h4> " + articles[i].title + "</h4>"
+        //                        + "<time>" + date.toLocaleString() + "</time></a ></dd ></dl ></li > <hr /> ";
+        //                    str += content;
+        //                }
+        //            }
+        //            str += " </ul> </div>";
+        //            $("#main").html(str);
+        //        },
+        //    });
+        //});
+
+
+            $("#btn1").click(function () {
+                $('html,body').animate({ scrollTop: $('#main').offset().top-50 }, 900);
+                return false;
+            });
+
+
+
+            $("#btn2").click(function () {
+                $('html,body').animate({ scrollTop: $('#Second').offset().top-50 }, 900);
+                return false;
+            });
+
+
+        $(function () {
+            $("#btn3").click(function () {
+                $('html,body').animate({ scrollTop: $('#Third').offset().top-50 }, 900);
+                return false;
+            });
+        });
+
+        $(function () {
+            $("#btn4").click(function () {
+                $('html,body').animate({ scrollTop: $('#Fourth').offset().top-50 }, 900);
+                return false;
+            });
+        });
+
+        $(function () {
+            $("#btn5").click(function () {
+                $('html,body').animate({ scrollTop: $('#Fifth').offset().top-50 }, 900);
+                return false;
+            });
+        });
+
+        $(function () {
+            $("#btn6").click(function () {
+                $('html,body').animate({ scrollTop: $('#Sixth').offset().top-50 }, 900);
+                return false;
+            });
+        });
+
+
+        $(function () {
+            $("#btn7").click(function () {
+                $('html,body').animate({ scrollTop: $('#Seventh').offset().top-50 }, 900);
+                return false;
+            });
+        });
+    </script>
+}
+

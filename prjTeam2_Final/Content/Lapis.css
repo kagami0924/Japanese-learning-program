@@ -1,0 +1,374 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+/*    font-family: 'Hachi Maru Pop', cursive;
+*/}
+
+a:hover {
+    /*color: red;*/
+    text-decoration: none;
+}
+
+.nav-li a:hover {
+    text-decoration: none;
+}
+
+/*a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-ul {
+    list-style: none;
+    display: flex;
+}
+
+.nav-li {
+    margin: 0 10px 0 10px;
+}
+
+.navbar {
+    background-color: #2d3d5a;*/ /*薄荷綠*/
+    /*font-size: 16pt;
+}
+
+.nav-a {
+    color: #fff;
+}*/
+
+.btn-login {
+    background-color: #fff; /*咖啡色*/
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    color: #2d3d5a;
+}
+
+    .btn-login:hover {
+        color: red;
+    }
+
+.vlogin {
+    background: #2d3d5a;
+    color: #fff;
+}
+
+
+
+/*--↓↓-------------SingleDiscuss*/
+
+
+
+.member-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.member {
+    width: 100px;
+    height: 100px;
+    border: solid 1px;
+}
+
+.nolove {
+    background-image: url('../imgs/Discuss/nolove.png');
+    display: block;
+    height: 32px;
+    width: 32px;
+    border: none;
+}
+
+.love {
+    background-image: url('../imgs/Discuss/love.png');
+    display: block;
+    height: 32px;
+    width: 32px;
+    border: none;
+}
+
+.at-title {
+    border-bottom: 1px solid;
+    margin: 36px 36px 0 36px;
+    width: 100%;
+}
+
+.at-discuss {
+    width: 100%;
+    border-bottom: 1px solid;
+    padding-bottom: 12px;
+    margin: 36px 36px 0 36px;
+}
+
+.at-main {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.at-floor {
+    width: 100%;
+    padding: 12px;
+    margin: 36px 36px 0 36px;
+}
+
+.at-comment {
+    margin: 0 24px 0 24px;
+    font-size: 13px;
+}
+
+.comment-list {
+    background-color: #F3F4F4;
+    width: 100%;
+    padding: 0 12px 0 12px;
+}
+
+.at-comment-list-input {
+    width: 100%;
+    padding: 0 12px 0 12px;
+    background-color: #F3F4F4;
+}
+
+.at-comment-input {
+    margin: 0 24px 0 24px;
+    font-size: 13px;
+}
+
+.comment-input {
+    border-radius: 10px;
+    height: 40px;
+    margin-top: 7px;
+}
+
+
+.at-member {
+    margin-top: 30px;
+}
+
+.at-time {
+    font-size: 5pt;
+    color: #797979;
+    line-height: 28px;
+}
+
+
+.memberdiv {
+    width: 100px;
+}
+
+.lovediv {
+    width: 100px;
+}
+
+.article {
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    background-color:#fff;
+}
+
+.at-btn {
+    padding: 1px;
+    width: 50px;
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    background-color: #2d3d5a;
+    color: #fff;
+}
+.at-btn:hover{
+    color:red;
+}
+
+
+.ReComment-input {
+    border-radius: 10px;
+    height: 40px;
+    margin-top: 7px;
+}
+
+.comment-input:focus {
+    outline: none;
+}
+.ReComment-input:focus {
+    outline: none;
+}
+
+.com-div {
+    word-wrap: break-word;
+    overflow: auto;
+    max-width: 602px;
+    min-width: 602px;
+}
+
+
+/*--↓↓-------------DiscussList*/
+.textbox-search {
+    border-radius: 20px;
+    width: 150px;
+    text-align: center;
+}
+
+.textbox-search:focus {
+    outline: none;
+}
+
+.list-th {
+    background-color: #2d3d5a;
+    color:#fff
+}
+
+.list-btn {
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    width: 96.9px;
+    background-color: #fff;
+}
+
+.list-btn-select {
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    width: 96.9px;
+    background-color: #2d3d5a;
+}
+
+.btn-row {
+    margin-top: 50px;
+}
+
+.btn-a {
+    color: #2d3d5a;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.btn-a-select {
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+.list-sort {
+    border: solid #fff 1px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: rgb(123, 146, 188)
+}
+
+.table td {
+    text-align: center;
+}
+
+.table th {
+    text-align: center;
+    border-right: solid 1px #cccccc;
+}
+
+.list-title {
+    text-align: left !important;
+}
+
+.list {
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+}
+.list tr {
+    border-top: 1px solid #2d3d5a;
+}
+
+.title-p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.title-div {
+    width: 690px;
+}
+
+.th-Count {
+    width: 155px;
+}
+
+.td-Category {
+    width: 100px
+}
+
+.th-Re {
+    width: 150px;
+}
+.Reat-del, .at-del, .com-del, .del-topic {
+    background-color: #922932;
+}
+.Reat-edit, .at-edit, .com-edit, .edit-topic {
+    background-color: #29925E;
+}
+
+.custom-paginationjs a {
+    background-color: #fff !important;
+    color: #2d3d5a !important;
+}
+
+.paginationjs .paginationjs-pages li.active > a {
+    background-color: #2d3d5a !important;
+    color: #fff !important;
+}
+.demo{
+    width:50px;
+    height:50px;
+    background-color:rgb(123, 146, 188);
+    color:#fff;
+    border-radius:50%;
+    text-align:center;
+    line-height:50px;
+    position:absolute;
+    right:60px;
+    bottom:60px;
+}
+
+
+
+
+/*--↓↓-------------EditDiscuss*/
+.title-span {
+    max-width: 682px;
+    line-height: 50px;
+    padding-left: 20px;
+}
+
+.edit-discuss-outline {
+    border: #2d3d5a solid 3px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+}
+
+a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.tbody a {
+    color: black;
+}
+
+.tr-select {
+    background-color: rgba(255, 209, 163,0.5) !important;
+}
+
+
+.main-textarea {
+    resize: none;
+    max-width: initial;
+}
+
+.msg {
+    margin-left: 20px;
+    color: red;
+    text-align: center;
+    display: block;
+}
+
+.reg-msg {
+    font-size: 10pt;
+    color: red;
+}
+
+.reg-title {
+    text-align: end;
+    line-height: 40px;
+}
+
+

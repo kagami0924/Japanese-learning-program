@@ -1,0 +1,171 @@
+﻿
+@{ ViewBag.Title = "Index"; }
+
+<h2 style="margin-top:100px"><b>後臺系統</b></h2>
+
+@* 功能選擇 *@
+<div class="row" style="margin-top:50px">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">首頁</a>
+            <a class="nav-link" id="v-pills-private-tab" data-toggle="pill" href="#v-pills-private" role="tab" aria-controls="v-pills-private" aria-selected="false">個人資料</a>
+            <a class="nav-link" id="v-pills-memberList-tab" data-toggle="pill" href="#v-pills-memberList" role="tab" aria-controls="v-pills-memberList" aria-selected="false">會員清單</a>
+            <a class="nav-link" id="v-pills-statistics-tab" data-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-statistics" aria-selected="false">數據統計</a>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent" style="height:700px">
+            @* 首頁 *@
+            <div class="tab-pane show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+            </div>
+            @* 個人資料 *@
+            <div class="tab-pane fade" id="v-pills-private" role="tabpanel" aria-labelledby="v-pills-private-tab">
+                <h2><b>個人資料</b></h2>
+                <form id="privateInformation">
+                    <fieldset style="border:2px solid black; margin-top:20px">
+                        <legend style="width:260px; border:2px solid blue; margin:auto; margin-right:20px;">
+                            <input type="button" id="privateShow" value="顯示" class="btn btn-dark" />
+                            <input type="button" id="privateHide" value="隱藏" class="btn btn-dark" disabled />
+                            <input type="button" id="privateUpdate" value="更新" class="btn btn-dark" />
+                            <input type="button" id="privateSave" value="儲存" class="btn btn-dark" disabled />
+                        </legend>
+                        <div style="margin-top:20px; font-size:20px">
+                            <p style="margin-left:20px; font-size:24px"><b><i><u>帳號資訊</u></i></b></p>
+                            <div style="margin-left:20px">
+                                <label for="privateId" style="margin-left:20px;">編號：</label>
+                                <input type="text" id="privateId" name="privateId" disabled />
+                                <label for="privateName" style="margin-left:20px">姓名：</label>
+                                <input type="text" id="privateName" name="privateName" disabled /><br />
+                                <label for="privateNickname" style="margin-left:20px">暱稱：</label>
+                                <input type="text" id="privateNickname" name="privateNickname" disabled />
+                                <label for="privateBirthday" style="margin-left:20px">生日：</label>
+                                <input type="date" id="privateBirthday" name="privateBirthday" style="width:228px" disabled /><br />
+                                <label for="privateAccount" style="margin-left:20px">帳號：</label>
+                                <input type="text" id="privateAccount" name="privateAccount" disabled />
+                                <label for="privatePassword" style="margin-left:20px">密碼：</label>
+                                <input type="text" id="privatePassword" name="privatePassword" disabled />
+                            </div>
+                        </div>
+                        <div style="margin-top:40px; margin-bottom:40px; font-size:20px">
+                            <p style="margin-left:20px; font-size:24px"><b><i><u>基本資訊</u></i></b></p>
+                            <div style="margin-left:20px">
+                                <label for="privateGender" style="margin-left:20px">性別：</label>
+                                <input type="text" id="privateGender" name="privateGender" disabled />
+                                <label for="privateOccupation" style="margin-left:20px">職業：</label>
+                                <input type="text" id="privateOccupation" name="privateOccupation" disabled /><br />
+                                <label for="privateNationality" style="margin-left:20px">國籍：</label>
+                                <input type="text" id="privateNationality" name="privateNationality" disabled />
+                                <label for="privateLivingArea" style="margin-left:20px;">居住區域：</label>
+                                <input type="text" id="privateLivingArea" name="privateLivingArea" style="width:190px" disabled /><br />
+                                <label for="privateJLPTLevel" style="margin-left:20px">日檢級別：</label>
+                                <input type="text" id="privateJLPTLevel" name="privateJLPTLevel" style="width:190px" disabled />
+                                <label for="privateGoal" style="margin-left:20px">目標：</label>
+                                <input type="text" id="privateGoal" name="privateGoal" disabled />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            @* 會員清單 *@
+            <div class="tab-pane fade" id="v-pills-memberList" role="tabpanel" aria-labelledby="v-pills-memberList-tab">
+                <h2><b>會員清單</b></h2>
+                <div id="mlFilter">
+                    <form>
+                        <fieldset style="border: 2px solid black; margin-top: 20px; font-size:20px; ">
+                            <legend style="font-size:24px; margin-left:20px; width:100px">篩選條件</legend>
+                            <div style="margin:10px auto;">
+                                <span style="width:150px; margin-left:60px" id="colIdentity">
+                                    <label for="bycoIIdentity">權限：</label>
+                                    <select name="bycoIIdentity" id="bycoIIdentity">
+                                        <option>請選擇</option>
+                                        <option value="admin">管理員</option>
+                                        <option value="member">會員</option>
+                                    </select>
+                                </span>
+                                <span style="width: 200px; visibility: hidden" id="colName">
+                                    <label for="bycolName">欄位名稱：</label>
+                                    <select name="bycolName" id="bycolName">
+                                        <option>請選擇</option>
+                                        <option value="accountAlive">帳號有效</option>
+                                    </select>
+                                </span>
+                                <span style="width: 150px; visibility: hidden" id="colAlive">
+                                    <label for="bycolAlive">帳號有效：</label>
+                                    <select name="bycolAlive" id="bycolAlive">
+                                        <option>請選擇</option>
+                                        <option value="false">false</option>
+                                        <option value="true">true</option>
+                                    </select>
+                                </span>
+                                <input type="button" id="mlfilterSub" value="篩選" />
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div id="ml" style="margin-top:20px">
+
+                </div>
+            </div>
+            @* 數據統計 *@
+            <div class="tab-pane fade" id="v-pills-statistics" role="tabpanel" aria-labelledby="v-pills-statistics-tab">
+                <h2><b>數據統計</b></h2>
+                <div>
+                    <input type="button" name="chart1" id="chart1" value="會員性別比例" />
+                    <input type="button" name="chart4" id="chart4" value="會員年齡區間" />
+                    <input type="button" name="chart2" id="chart2" value="居住地區分佈" />
+                    <input type="button" name="chart3" id="chart3" value="平均登入時間" />
+                </div>
+                @*男女性別比例*@
+                <div id="genderpercentageStatistics" style="border:1px solid #000000; margin-top:20px; display:none">
+                    <div id="tGPS" style="margin-top:20px">
+
+                    </div>
+                    <div id="gps" style="margin:20px auto">
+                        <canvas id="cGPS" width="800" height="800">
+                        </canvas>
+                    </div>
+                </div>
+                @*會員年齡區間*@
+                <div id="agerangeStatistics" style="border:1px solid #000000; display:none">
+                    <div id="tARS" style="margin-top:20px">
+
+                    </div>
+                    <div id="ars" style="margin: 20px auto">
+                        <canvas id="cARS" width="800" height="800">
+
+                        </canvas>
+                    </div>
+                </div>
+                @*居住地區分佈*@
+                <div id="livingareadistributionStatistics" style="border:1px solid #000000; margin-top:20px; display:none">
+                    <div id="tLADS" style="margin-top:20px">
+
+                    </div>
+                    <div id="lads" style="margin:20px auto">
+                        <canvas id="cLADS" width="800" height="800">
+                        </canvas>
+                    </div>
+                </div>
+                @*登入停留時間*@
+                <div id="usingtimeStatistics" style="border:1px solid #000000; display:none">
+                    <div id="tUSS" style="margin-top:20px">
+
+                    </div>
+                    <div id="uss" style="margin: 20px auto">
+                        <canvas id="cUSS" width="800" height="800">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+
+    <script src="~/Scripts/V/Backend.js"></script>
+}
+

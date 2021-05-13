@@ -1,0 +1,587 @@
+﻿@model  IEnumerable<prjTeam2_Final.Models.N4>
+@{ ViewBag.Title = "N4QUESTION1"; }
+
+<style>
+    .headsentence {
+        font-size: 18px;
+        font-style: inherit;
+        text-align: right;
+    }
+
+    .boxStyle {
+        width: 1000px;
+        /*        border: 2px blue solid;
+    */ margin: auto;
+    }
+
+    .divButton {
+        display: inline-block;
+        vertical-align: top;
+        width: 80px;
+        margin-left: 495px;
+    }
+
+    .pcheckAnswer {
+        font-size: 16px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: black;
+    }
+
+    .labelstyle {
+        width: 100px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .ulstyle {
+        display: flex;
+    }
+</style>
+
+<h2 class="alert alert-info" style="margin-top:50px">題目練習-N4</h2>
+<div class="container">
+    <p class="headsentence">※請找出正確選項，未作答的題目將被列為錯誤※</p>
+    @*<div class=" boxStyle">
+            <div style="text-align:right;"><a href="~/JPquestionN4/N4QUESTION2">下一頁</a></div>
+        </div>*@
+    @*<div id="TESTTTT"></div>*@
+    <form>
+        <table class="table table-hover">
+            <thead>
+                <tr class="row">
+                    @*<th class="col-md-1">@Html.DisplayNameFor(m => m.Category)</th>*@
+                    @*<th class="col-md-3">@Html.DisplayNameFor(m => m.Question)</th>*@
+                    @*<th class="col-md-4">@Html.DisplayNameFor(m => m.Options)</th>*@
+                    <th class="col-12 col-md-1">題型</th>
+                    <th class="col-12 col-md-5">題目</th>
+                    <th class="col-12 col-md-6"style="padding-left: 50px;">選項</th>
+                    @*<th class="col-12 col-md-2">作答區</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="row" id="JPq@(item.ID)">
+                        <td class="col-md-1">@item.Category</td>
+                        <td class="col-md-5">
+                            @if (item.Question.Contains("/Audio/"))
+                            {
+                                <audio controls="controls"><source src="@item.Question" type="audio/mpeg" /></audio> }
+                            else
+                            {
+                                @item.Question}
+                        </td>
+                        @*<td class="col-md-1">@item.OptionsA</td>
+                            <td class="col-md-1">@item.OptionsB</td>
+                            <td class="col-md-1">@item.OptionsC</td>
+                            <td class="col-md-1">@item.OptionsD</td>*@
+
+                        <td class="col-md-6 ">
+                            @*想要資料庫換行可能要用SPLIT選取兩個空格作為條件，來分隔　　　或是在裡面用BR標籤*@
+                            @*@Html.RadioButton("A", new { @class = "form-check-input" }) A
+                                @Html.RadioButton("B", new { @class = "form-check-input" }) B
+                                @Html.RadioButton("C", new { @class = "form-check-input" }) C
+                                @Html.RadioButton("D", new { @class = "form-check-input" }) D老師原本的方式*@
+                            <ul class="ulstyle">
+                                <li style=" list-style:none;">
+                                    <input type="radio" class="radiochecked" name="@item.ID" value="1" id="ansA@(item.ID)">
+                                    <label class="labelstyle" for="ansA@(item.ID)">@item.OptionsA </label>
+                                </li>
+                                <li style=" list-style:none;">
+                                    <input type="radio" class="radiochecked" name="@item.ID" value="2" id="ansB@(item.ID)">
+                                    <label class="labelstyle" for="ansB@(item.ID)">@item.OptionsB </label>
+                                </li>
+                                <li style=" list-style:none;">
+                                    <input type="radio" class="radiochecked" name="@item.ID" value="3" id="ansC@(item.ID)">
+                                    <label class="labelstyle" for="ansC@(item.ID)">@item.OptionsC </label>
+                                </li>
+                                <li style=" list-style:none;">
+                                    <input type="radio" class="radiochecked" name="@item.ID" value="4" id="ansD@(item.ID)">
+                                    <label class="labelstyle" for="ansD@(item.ID)">@item.OptionsD </label>
+                                </li>
+                            </ul>
+                        </td>
+                        @*@GetRadioValue()*@
+
+
+                        @*@for (int i = 0; i < 9; i++)
+                            {
+                                <td class="col-md-2">
+                                    @Html.RadioButton("answer", "A", new { @class = "form-check-input" })
+                                    @Html.RadioButton("answer", "B", new { @class = "form-check-input" })
+                                    @Html.RadioButton("answer", "C", new { @class = "form-check-input" })
+                                    @Html.RadioButton("answer", "D", new { @class = "form-check-input" })
+                                </td>老師原本的方式
+                            }*@
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+    <button class="btn btn-light divButton" role="button" id="getAnswer">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             viewBox="0 0 507.2 507.2" style="enable-background:new 0 0 507.2 507.2;" xml:space="preserve">
+<circle style="fill:#32BA7C;" cx="253.6" cy="253.6" r="253.6" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<path style="fill:#0AA06E;" d="M188.8,368l130.4,130.4c108-28.8,188-127.2,188-244.8c0-2.4,0-4.8,0-7.2L404.8,152L188.8,368z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<g>
+<path style="fill:#FFFFFF;" d="M260,310.4c11.2,11.2,11.2,30.4,0,41.6l-23.2,23.2c-11.2,11.2-30.4,11.2-41.6,0L93.6,272.8
+		c-11.2-11.2-11.2-30.4,0-41.6l23.2-23.2c11.2-11.2,30.4-11.2,41.6,0L260,310.4z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<path style="fill:#FFFFFF;" d="M348.8,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6l-176,175.2
+		c-11.2,11.2-30.4,11.2-41.6,0l-23.2-23.2c-11.2-11.2-11.2-30.4,0-41.6L348.8,133.6z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</g></svg><p class=" pcheckAnswer text-nowrap"id="alreadyAnswer">核對答案</p>
+    </button>
+
+    @*<a class="btn btn-warning divButton" href="~/JPquestion/N5QUESTION" role="button">N5</a>
+        <a class="btn btn-info divButton" href="#" role="button">N4</a>
+        <a class="btn btn-success divButton" href="~/JPquestionN3/N3QUESTION1" role="button">N3</a>
+        <a class="btn btn-primary divButton" href="~/JPquestionN2/N2QUESTION1" role="button">N2</a>
+        <a class="btn btn-danger divButton" href="~/JPquestionN1/N1QUESTION1" role="button">N1</a>*@
+
+    @*<button class="btn btn-light divButton" style="color:black;">
+            <img src="~/imgs/icon-grade.png">歷屆成績
+        </button>*@
+    <div style="display:inline-block;text-align:center; display:none;" id="btnSaveGrade">
+        <a role="button" class="btn btn-light " data-toggle="modal" data-target="#saveGrade">
+
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 512 512" style="enable-background:new 0 0 128 128;width:32px;height:32px;" xml:space="preserve">
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="0" y1="258" x2="512" y2="258" gradientTransform="matrix(1 0 0 -1 0 514)">
+            <stop offset="0" style="stop-color:#80D8FF" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <stop offset="1" style="stop-color:#EA80FC" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</linearGradient>
+<path style="fill:url(#SVGID_1_);" d="M512,256c0,141.503-114.517,256-256,256C114.497,512,0,397.483,0,256c0-11.046,8.954-20,20-20
+	s20,8.954,20,20c0,119.392,96.622,216,216,216c119.392,0,216-96.622,216-216c0-119.392-96.622-216-216-216c-11.046,0-20-8.954-20-20
+	s8.954-20,20-20C397.503,0,512,114.517,512,256z M160.406,61.8l25.869-10.716c10.204-4.228,15.051-15.927,10.823-26.132
+	s-15.926-15.054-26.132-10.823l-25.869,10.716c-10.204,4.228-15.051,15.927-10.823,26.132
+	C138.488,61.148,150.168,66.038,160.406,61.8z M93.366,113.165l19.799-19.799c7.811-7.811,7.811-20.475,0-28.285
+	s-20.475-7.811-28.285,0L65.081,84.88c-7.811,7.811-7.811,20.475,0,28.285C72.89,120.974,85.555,120.976,93.366,113.165z
+	 M24.952,197.099c10.227,4.236,21.914-0.642,26.132-10.823l10.716-25.87c4.228-10.205-0.619-21.904-10.823-26.132
+	c-10.207-4.227-21.904,0.619-26.132,10.823l-10.716,25.869C9.901,181.172,14.748,192.871,24.952,197.099z M256,156
+	c-11.046,0-20,8.954-20,20v60h-60c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h60v60c0,11.046,8.954,20,20,20
+	c11.046,0,20-8.954,20-20v-60h60c11.046,0,20-8.954,20-20s-8.954-20-20-20h-60v-60C276,164.954,267.046,156,256,156z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+            <p class="pcheckAnswer">存入我的成績單</p>
+        </a>
+    </div>
+
+    <br />
+
+    <div class="boxStyle">
+        <a class="btn btn-info " style=" display:flex;width:300px;position:relative;margin:auto;justify-content:center;color:black;" href="~/JPquestion/ExamHomePage" role="button">級別選擇</a>
+    </div>
+</div>
+<div class="modal fade" id="saveGrade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">測驗結果(N4)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="ShowGrade">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary " id="modalSaveGrade">存入成績!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var chooseAnswer = new Array();
+        var WrongAnswerRecord = new Array();
+        var MemberID = document.cookie == "" ? 0 : document.cookie.split("ID=")[1].split("&")[0] / 1;
+
+        //data[i].Answer 是否等於
+
+        $("#getAnswer").click(function () {
+            $("#btnSaveGrade").show();
+            getRadioValue();
+            $(this).attr("disabled", "disabled");
+            $("#alreadyAnswer").text("完成核對");
+
+        }
+        )
+        var CorrectCount = 0;
+        var WrongCount = 0;
+        var Accuracy;
+        function getRadioValue() {
+            for (var i = 1; i < 28; i++) {
+                //console.log($(`input[name="${i}"]:checked`).val())
+                if ($(`input[name="${i}"]:checked`).val() == undefined) {
+                    //console.log("noanswer");沒有填寫
+                    chooseAnswer.push("")
+                }
+                else {
+                    chooseAnswer.push($(`input[name="${i}"]:checked`).val());
+                }
+            }
+            console.log(chooseAnswer);
+
+            $.ajax({
+                url: "/JPquestionN4/getanswer",
+                type: "GET",
+                success: function (data) {
+                    CorrectCount = 0;
+                    WrongCount = 0;
+                    for (var i = 0; i < data.length; i++) {
+                        //console.log([i]);
+                        //console.log($(`input[name="${i + 1}"]:checked`).val())
+                        //console.log(data[i].Answer); 找到資料庫資料
+                        console.log(data[i].Answer)
+                        if (data[i].Answer == chooseAnswer[i]) {
+                            $(`#JPq${i + 1}`).css("background-color", "aqua");
+                            CorrectCount += 1;
+                        }
+                        else if (chooseAnswer[i] == "") {
+                            $(`#JPq${i + 1}`).css("background-color", "yellow");
+                            WrongCount += 1;
+                            WrongAnswerRecord.push(i + 1);
+                        }
+                        else {
+                            $(`#JPq${i + 1}`).css("background-color", "pink");
+                            WrongCount += 1;
+                            WrongAnswerRecord.push(i + 1);
+                        }
+
+                    }
+                    console.log(WrongAnswerRecord);   //用ID找錯誤的題號了
+                    Accuracy = (CorrectCount / (CorrectCount + WrongCount)) * 100;
+                    console.log(Accuracy);
+                    let xtx = `總題數:<p>${CorrectCount + WrongCount}</p><br />
+                                    答對題數:<p>${CorrectCount}</p><br />
+                                    正確率: <p>${parseInt(Accuracy)}%</p>`;
+                    $("#ShowGrade").html(xtx);
+                },
+            });
+            $("#modalSaveGrade").click(function () {
+                if (MemberID != 0) {
+                    Swal.fire({
+                        title: '儲存成功!',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
+                    $("#saveGrade").modal('hide');
+                    $.ajax({
+                        url: "/JPquestionN4/SaveToGrade",
+                        type: "POST",
+                        data: { "Accuracy": parseInt(Accuracy), "MemberID": MemberID },
+                        success: function (data) {
+                            console.log("Accuracy = " + data);
+                        }
+                    })
+                }
+                else {
+                    $("#modalLOReg").modal('show');
+                }
+            })
+            // 先印選擇題答案
+            //在印資料庫答案
+            //用AJAX的話可以只做一個VIEW就刷新所有葉面
+        }
+    </script>
+}

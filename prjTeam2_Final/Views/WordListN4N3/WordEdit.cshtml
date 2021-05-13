@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "WordEdit";
+}
+
+<h2>單字編輯</h2>
+<form class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-md-2">日文:</label>
+        <input type="text" class="form-control" name="日文">
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">中文:</label>
+        <input type="text" class="form-control" name="中文">
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">假名:</label>
+        <input type="text" class="form-control" name="假名">
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">種類:</label>
+        <input type="text" class="form-control" name="種類">
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="儲存" class="btn btn-primary" />
+            @Html.ActionLink("回單字表", "N4Index", "WordListN4N3", "", new { @class = "btn btn-success" })
+        </div>
+    </div>
+</form>

@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title さくらの學習交流地</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA==" crossorigin="anonymous" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.tiny.cloud/1/sc3jp0c7htyf9c5oqc0pa3xysyz5gd7ttvbxwqgyo9bqnldj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.2/chart.min.js" integrity="sha512-dnUg2JxjlVoXHVdSMWDYm2Y5xcIrJg1N+juOuRi0yLVkku/g26rwHwysJDAMwahaDfRpr1AxFz43ktuMPr/l1A==" crossorigin="anonymous"></script>
+
+    @RenderSection("style", required: false)
+    <style>
+        .header-nav {
+            background-color: #2d3d5a;
+        }
+
+        body {
+            background-color: #F5F8FA;
+        }
+
+        .border-bottom {
+            margin-bottom: 20px;
+        }
+
+        .purpose {
+            margin: 50px auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .purpose-title {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            color: #3AB7BD;
+        }
+
+        .purpose-p {
+            font-size: 25px;
+        }
+
+        .footer {
+            background-color: #2d3d5a;
+            margin-bottom: 20px;
+            height: 40px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .maintitles {
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            color: white;
+        }
+
+        .Carousel-TOP {
+            /*margin-top: 80px;*/
+        }
+    </style>
+</head>
+<body>
+    @*判斷有沒有登入 document.cookie=="" <<--沒登入*@
+    @*抓ID document.cookie.split("ID=")[1].split("&")[0]*@
+    @*抓名字 document.cookie.split("own=")[1].split(";")[0]*@
+    <header class="border-bottom header-nav fixed-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="/Home/Index"><img src="~/imgs/LOGO.PNG" id="logo" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/Home/Index">首頁 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                日語題庫練習
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/JPquestion/ExamHomePage">日檢JLPT模擬題庫</a>
+                                <a class="dropdown-item" href="/WordExam/ChooseRange">單字測驗</a>
+                                <a class="dropdown-item" href="/CustomizeTest/vCustomizeTest">自訂題庫測驗</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/WordListN4N3/N4Index">單字表</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/News/NewsIndex">新聞時事</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Calendar/Calendar">活動區</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Discuss/vDiscussList">討論版</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        @* 登入 / 註冊 *@
+                        <li class="nav-item" id="lio">
+                            @*  panelLogOn *@
+                            <a class="nav-link" href="#modalLOReg" data-toggle="modal" data-target="#modalLOReg">登入 / 註冊</a>
+                        </li>
+                        @* 登出 / 會員 / 圖示 *@
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        @RenderBody()
+    </div>
+    @* 登入 / 註冊 *@
+    <div class="modal fade" id="modalLOReg" tabindex="-1" role="dialog" aria-labelledby="modalLORegTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLORegTitle" style="font-size:20px;">登入 / 註冊</h5>
+                </div>
+                <div class="modal-body">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="navtabLO" data-toggle="tab" href="#navLO" role="tab" aria-controls="navLO" aria-selected="true">登入</a>
+                            <a class="nav-item nav-link" id="navtabReg" data-toggle="tab" href="#navReg" role="tab" aria-controls="navReg" aria-selected="false">註冊</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        @* 登入表單 *@
+                        <div class="tab-pane fade show active" id="navLO" role="tabpanel" aria-labelledby="navtabLO" style="height:500px">
+                            <form id="frmLO" name="frmLO">
+                                <fieldset style="border:2px solid gray; border-radius: 20px">
+                                    <legend style="margin-left:40px; width:40%">登入資訊</legend>
+                                    <div style="margin-top:10px; margin-left:15px">
+                                        <label for="loAcc">帳號：</label>
+                                        <input type="email" id="loAcc" name="loAcc" placeholder="請輸入帳號" required autofocus />
+                                        <span id="loAccErrMsg" style="margin-top:30px; margin-left:15px"></span>
+                                    </div>
+                                    <div style="margin-top:10px; margin-left:15px">
+                                        <label for="loPwd">密碼：</label>
+                                        <input type="password" id="loPwd" name="loPwd" placeholder="請輸入密碼" required />
+                                        <span id="loPwdErrMsg" style="margin-top:30px; margin-left:15px"></span>
+                                    </div>
+                                    <div style="margin-top:10px; margin-left:15px">
+                                        <a href="#frmPwdFgt" id="pwdFgt">忘記密碼</a>
+                                    </div>
+                                    <div style="margin-top:14px; margin-bottom:14px; margin-left:100px;">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:20px; width:20%">退出</button>
+                                        <button type="button" class="btn btn-primary" id="loSub" style="width:20%">送出</button>
+                                    </div>
+                                </fieldset>
+                                <div>
+                                    <button type="button" class="btn btn-outline-light" id="loDemo1" style="margin-left:15px;">Demo-宗穎</button>
+                                    <button type="button" class="btn btn-outline-light" id="loDemo2">Demo-小蔡</button>
+                                    <button type="button" class="btn btn-outline-light" id="loDemo3">Demo-博丞</button><br />
+                                    <button type="button" class="btn btn-outline-light" id="loDemo4" style="margin-left:15px">Demo-林均</button>
+                                    <button type="button" class="btn btn-outline-light" id="loDemo5">Demo-堯清</button>
+                                    <button type="button" class="btn btn-outline-light" id="loDemo6">Demo-盈瑭</button><br />
+                                    <button type="button" class="btn btn-outline-light" id="loDemo7" style="margin-left:15px">Demo-鈞鴻</button>
+                                </div>
+                            </form>
+                            @* 忘記密碼 *@
+                            <form id="frmPwdFgt" style="display:none">
+                                <fieldset style="border:2px solid gray; border-radius: 20px">
+                                    <legend style="margin-left:40px; width:40%">會員驗證</legend>
+                                    <div style="margin-top:10px; margin-left:15px">
+                                        <a href="#frmLO" id="prePage">返回</a>
+                                    </div>
+                                    <div style="margin-top:10px; margin-left:15px">
+                                        <label for="pfAcc">帳號：</label>
+                                        <input type="email" id="pfAcc" name="pfAcc" placeholder="請輸入帳號" required autofocus />
+                                        <span id="pfAccErrMsg" style="margin-top:30px; margin-left:15px"></span>
+                                    </div>
+                                    <div style="margin-top:14px; margin-bottom:14px">
+                                        <button type="button" id="pfDemo1" style="margin-left:15px">Demo 1</button>
+                                        <button type="button" class="btn btn-primary" id="pmSub" style="width:20%">送出</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        @* 註冊表單(Dynamic) *@
+                        <div class="tab-pane  fade" id="navReg" role="tabpanel" aria-labelledby="navtabReg" style="height:500px">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
+    @RenderSection("scripts", required: false)
+    <script src="../../Scripts/V/LogOnRegistration.js"></script>
+    <script>
+        function LoginStatus(href) {
+            if (document.cookie != "")
+                window.location.href = href;
+            else
+                $('#modalLOReg').modal('show')
+        }
+        $(document).on("click", "#navProfilePage", function () {
+
+            window.location.href = "/MemberProfile/ProfileResume/" + document.cookie.split('MemberID=')[1].split("&")[0] / 1;
+        })
+    </script>
+</body>
+</html>

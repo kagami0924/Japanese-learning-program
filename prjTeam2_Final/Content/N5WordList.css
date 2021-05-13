@@ -1,0 +1,22 @@
+﻿.liList {
+    margin: 20px;
+}
+
+.list-wordlist {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-group-item {
+    display: flex;
+    border: none;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.createword {
+    display: flex;
+    margin-top: 80px;
+    justify-content: center;
+}
+

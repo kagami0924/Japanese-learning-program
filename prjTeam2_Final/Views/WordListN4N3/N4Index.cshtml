@@ -1,0 +1,610 @@
+﻿
+@{
+    ViewBag.Title = "單字表 -";
+}
+@section style{
+    <link href="~/Content/N5WordList.css" rel="stylesheet" />
+    <style>
+        .Editcss {
+            background-color: #29925E;
+            color: white;
+        }
+
+        .deletecss {
+            background-color: #922932;
+            color: white;
+        }
+    </style>
+}
+
+
+<h2 style="text-align:center;" id="title" class="pt-5">N5日文單字表</h2>
+
+@*搜尋*@
+<div class="d-flex justify-content-between pb-3">
+    <div>
+        <button class="btn-lg" style="margin-left:22px;background-color:#2d3d5a;color:white" onclick="javascript:location.href='https://localhost:44349/WordExam/ChooseRange'">單字測驗</button>
+    </div>
+    <div>
+        <input type="text" class="mr-2" id="searchsend" />
+        <button class="btn" style="background-color:#2d3d5a;color:white" id="search">搜尋</button>
+    </div>
+</div>
+
+<div class="list-wordlist row">
+    @*切換難度*@
+    <div class="col-lg-2">
+        <ul class="list-group">
+            <li class="list-group-item" style="list-style-type:none;background:#F5F8FA">
+                <button class="btn-lg btn-info" id="N5btn" onclick="N5()">Ｎ５單字</button>
+            </li>
+            <li class="list-group-item" style="list-style-type:none;background:#F5F8FA">
+                <button class="btn-lg btn-info" id="N4btn" onclick="N4()">Ｎ４單字</button>
+            </li>
+            <li class="list-group-item" style="list-style-type:none;background:#F5F8FA">
+                <button class="btn-lg btn-info" id="N3btn" onclick="N3()">Ｎ３單字</button>
+            </li>
+            <li class="list-group-item" style="list-style-type:none;background:#F5F8FA">
+                <button class="btn-lg btn-info" id="N2btn" onclick="N2()">Ｎ２單字</button>
+            </li>
+            <li class="list-group-item" style="list-style-type:none;background:#F5F8FA">
+                <button class="btn-lg btn-info" id="N1btn" onclick="N1()">Ｎ１單字</button>
+            </li>
+            <li class="list-group-item" style="list-style-type:none;background:#F5F8FA">
+                <button class="btn btn-lg" type="button" data-toggle="modal" data-target="#addcreate" id="CreateNWord" style="background-color:#2d3d5a;color:white">新增單字</button>
+            </li>
+        </ul>
+    </div>
+    @*單字表*@
+    <table class="table table-striped table-bordered col-10" style="text-align:center">
+        <thead style="text-align:center">
+            <tr>
+                <th width="20%">日文</th>
+                <th width="20%">中文</th>
+                <th width="20%">假名</th>
+                <th width="20%">種類</th>
+                <th width="20%" id="editTitle">編輯</th>
+            </tr>
+        </thead>
+        <tbody id="WordList">
+        </tbody>
+    </table>
+</div>
+@*分頁*@
+<div id="Pagination" class="N4Pagination N3Pagination d-flex justify-content-center pb-2">
+</div>
+
+@*新增單字*@
+<div class="modal" tabindex="-1" role="dialog" id="addcreate">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">新增單字</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="createword">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">日文:</label>
+                        <input type="text" class="form-control" name="日文" id="C日文">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">中文:</label>
+                        <input type="text" class="form-control" name="中文" id="C中文">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">假名:</label>
+                        <input type="text" class="form-control" name="假名" id="C假名">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">種類:</label>
+                        <input type="text" class="form-control" name="種類" id="C種類">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">難度:</label>
+                        <select name="難度" class="form-control" id="C難度">
+                            <option value="N5">N5</option>
+                            <option value="N4">N4</option>
+                            <option value="N3">N3</option>
+                            <option value="N2">N2</option>
+                            <option value="N1">N1</option>
+                        </select>
+                    </div>
+                </form>
+                <button class="btn-secondary" id="Demo1">Demo</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal" id="CreateWord" style="background-color:#2d3d5a;color:white">新增</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*修改單字*@
+<div class="modal" tabindex="-1" role="dialog" id="EditWordShow">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">修改單字</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editword">
+                    <div class="form-group" hidden>
+                        <label class="control-label col-md-2">No:</label>
+                        <input type="text" class="form-control" name="No" id="No">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">日文:</label>
+                        <input type="text" class="form-control" name="日文" id="日文">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">中文:</label>
+                        <input type="text" class="form-control" name="中文" id="中文">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">假名:</label>
+                        <input type="text" class="form-control" name="假名" id="假名">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">種類:</label>
+                        <input type="text" class="form-control" name="種類" id="種類">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">難度:</label>
+                        <select name="難度" class="form-control" id="難度">
+                            <option value="N5">N5</option>
+                            <option value="N4">N4</option>
+                            <option value="N3">N3</option>
+                            <option value="N2">N2</option>
+                            <option value="N1">N1</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal" id="EditWordSend" style="background-color:#2d3d5a;color:white">儲存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var member = document.cookie == "" ? 0 : document.cookie.split("ID=")[1].split("&")[0] / 1
+        var guest = "member";
+        $.ajax({
+            url: "/WordListN4N3/Member",
+            data: { "Member": member },
+            success: function (data) {
+                if (data == "admin") {
+                    guest = "admin";
+                }
+                else
+                    guest = "member";
+
+                if (guest == "member") {
+                    $("#editTitle").remove();
+                    $("#CreateNWord").remove();
+                }
+            }
+        })
+        $(document).ready(N5());
+        //切換標題
+        $("#N5btn").click(function () {
+            $("#title").html("N5日文單字表")
+        })
+        $("#N4btn").click(function () {
+            $("#title").html("N4日文單字表")
+        })
+        $("#N3btn").click(function () {
+            $("#title").html("N3日文單字表")
+        })
+        $("#N2btn").click(function () {
+            $("#title").html("N2日文單字表")
+        })
+        $("#N1btn").click(function () {
+            $("#title").html("N1日文單字表")
+        })
+        //單字分頁
+        function N5() {
+            $('#Pagination').empty().pagination({
+                dataSource: function (done) {
+                    $.ajax({
+                        url: "/WordListN4N3/N5WordList",
+                        type: "GET",
+                        success: function (data) {
+                            done(data)
+                        }
+                    });
+                },
+                callback: function (data) {
+                    var txt = "";
+                    for (var i = 0; i < data.length; i++) {
+                        if (guest == "admin") {
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                                <td >
+                                                    <span class="btn Editcss edit"  no="${data[i].No}" data-toggle="modal" data-target="#EditWordShow">修改</span>
+                                                    <span class="btn deletecss delete" no="${data[i].No}">刪除</span>
+                                                </td>
+                                        </tr>`
+                        }
+                        else
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                        </tr>`
+                    }
+                    $("#WordList").html(txt);
+                }
+            })
+        }
+        function N4() {
+            $('.N4Pagination').empty().pagination({
+                dataSource: function (done) {
+                    $.ajax({
+                        url: "/WordListN4N3/N4WordList",
+                        type: "GET",
+                        success: function (data) {
+                            done(data)
+                        }
+                    });
+                },
+                callback: function (data) {
+
+                    var txt = "";
+                    for (var i = 0; i < data.length; i++) {
+                        if (guest == "admin") {
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                                <td >
+                                                    <span class="btn Editcss edit"  no="${data[i].No}" data-toggle="modal" data-target="#EditWordShow">修改</span>
+                                                    <span class="btn deletecss delete" no="${data[i].No}">刪除</span>
+                                                </td>
+                                        </tr>`
+                        }
+                        else
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                        </tr>`
+                    }
+                    $("#WordList").html(txt);
+                }
+            })
+        }
+        function N3() {
+            $('.N3Pagination').empty().pagination({
+                dataSource: function (done) {
+                    $.ajax({
+                        url: "/WordListN4N3/N3WordList",
+                        type: "GET",
+                        success: function (data) {
+                            done(data)
+                        }
+                    });
+                },
+                callback: function (data) {
+
+                    var txt = "";
+                    for (var i = 0; i < data.length; i++) {
+                        if (guest == "admin") {
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                                <td >
+                                                    <span class="btn Editcss edit"  no="${data[i].No}" data-toggle="modal" data-target="#EditWordShow">修改</span>
+                                                    <span class="btn deletecss delete" no="${data[i].No}">刪除</span>
+                                                </td>
+                                        </tr>`
+                        }
+                        else
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                        </tr>`
+                    }
+                    $("#WordList").html(txt);
+                }
+            })
+        }
+        function N2() {
+            $('#Pagination').empty().pagination({
+                dataSource: function (done) {
+                    $.ajax({
+                        url: "/WordListN4N3/N2WordList",
+                        type: "GET",
+                        success: function (data) {
+                            done(data)
+                        }
+                    });
+                },
+                callback: function (data) {
+                    var txt = "";
+                    for (var i = 0; i < data.length; i++) {
+                        if (guest == "admin") {
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                                <td >
+                                                    <span class="btn Editcss edit"  no="${data[i].No}" data-toggle="modal" data-target="#EditWordShow">修改</span>
+                                                    <span class="btn deletecss delete" no="${data[i].No}">刪除</span>
+                                                </td>
+                                        </tr>`
+                        }
+                        else
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                        </tr>`
+                    }
+                    $("#WordList").html(txt);
+                }
+            })
+        }
+        function N1() {
+            $('#Pagination').empty().pagination({
+                dataSource: function (done) {
+                    $.ajax({
+                        url: "/WordListN4N3/N1WordList",
+                        type: "GET",
+                        success: function (data) {
+                            done(data)
+                        }
+                    });
+                },
+                callback: function (data) {
+                    var txt = "";
+                    for (var i = 0; i < data.length; i++) {
+                        if (guest == "admin") {
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                                <td >
+                                                    <span class="btn Editcss edit"  no="${data[i].No}" data-toggle="modal" data-target="#EditWordShow">修改</span>
+                                                    <span class="btn deletecss delete" no="${data[i].No}">刪除</span>
+                                                </td>
+                                        </tr>`
+                        }
+                        else
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                        </tr>`
+                    }
+                    $("#WordList").html(txt);
+                }
+            })
+        }
+
+        //新增清空
+        $("#CreateNWord").click(function () {
+            var a = "";
+            $("#C日文").val(a);
+            $("#C中文").val(a);
+            $("#C假名").val(a);
+            $("#C種類").val(a);
+            $("#C難度").val("N5");
+        })
+        //新增
+        $("#CreateWord").click(function () {
+            var form = document.querySelector("#createword");
+            var fd = new FormData(form);
+            $.ajax({
+                url: "/WordListN4N3/N4Create",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fd,
+                success: function (data) {
+                    if ($("#C日文").val() == "" || $("#C中文").val() == "" || $("#C假名").val() == "" || $("#C種類").val() == "") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '有項目未填寫!'
+                        })
+                        $("#CreateNWord").click();
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '單字新增成功',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        if ($("#C難度").val() == "N5") {
+                            $("#N5btn").click();
+                        }
+                        if ($("#C難度").val() == "N4") {
+                            $("#N4btn").click();
+                        }
+                        if ($("#C難度").val() == "N3") {
+                            $("#N3btn").click();
+                        }
+                        if ($("#C難度").val() == "N2") {
+                            $("#N2btn").click();
+                        }
+                        if ($("#C難度").val() == "N1") {
+                            $("#N1btn").click();
+                        }
+                    }
+                }
+            })
+        })
+        //新增Demo
+        $("#Demo1").click(function () {
+            $("#C日文").val("憧れる");
+            $("#C中文").val("憧憬");
+            $("#C假名").val("あこがれる");
+            $("#C種類").val("動詞");
+            $("#C難度").val("N5");
+        })
+        //修改
+        $("#WordList").on("click", ".edit", function () {
+            var wordEdit = $(this);
+            $.ajax({
+                url: "/WordListN4N3/WordEdit2",
+                type: "POST",
+                dataType: "json",
+                data: { "No": parseInt(wordEdit.attr("no")) },
+                success: function (data) {
+                    $("#No").val(data[0].No);
+                    $("#日文").val(data[0].日文);
+                    $("#中文").val(data[0].中文);
+                    $("#假名").val(data[0].假名);
+                    $("#種類").val(data[0].種類);
+                    $("#難度").val(data[0].難度);
+                }
+            })
+        })
+        //修改儲存
+        $("#EditWordSend").click(function () {
+            var Editform = document.querySelector("#editword")
+            var Editfd = new FormData(Editform);
+            $.ajax({
+                url: "/WordListN4N3/N4N3Edit",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: Editfd,
+                success: function (data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '單字修改成功',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    if ($("#難度").val() == "N5") {
+                        $("#N5btn").click();
+                    }
+                    if ($("#難度").val() == "N4") {
+                        $("#N4btn").click();
+                    }
+                    if ($("#難度").val() == "N3") {
+                        $("#N3btn").click();
+                    }
+                    if ($("#難度").val() == "N2") {
+                        $("#N2btn").click();
+                    }
+                    if ($("#難度").val() == "N1") {
+                        $("#N1btn").click();
+                    }
+                }
+            })
+        })
+        //刪除單字
+        $("#WordList").on("click", ".delete", function () {
+            var wordlistD = $(this);
+            Swal.fire({
+                title: '確定刪除嗎?',
+                text: '你將無法復原！',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '確定刪除！'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        '刪除！',
+                        '你的文件已經被刪除。',
+                        'success'
+                    )
+                    $.ajax({
+                        url: "/WordListN4N3/N4N3WordDelete",
+                        type: "POST",
+                        dataType: "json",
+                        data: { "No": parseInt(wordlistD.attr("no")) },
+                        success: function () {
+                            wordlistD.parents("tr").remove()
+                        },
+                    })
+                }
+            })
+        })
+        /*搜尋*/
+        $("#search").click(function () {
+            $('#Pagination').empty().pagination({
+                dataSource: function (done) {
+                    $.ajax({
+                        url: "/WordListN4N3/SearchWord",
+                        type: "POST",
+                        data: { "searching": `${$("#searchsend").val()}` },
+                        dataType: "json",
+                        success: function (data) {
+                            done(data)
+                        }
+                    });
+                },
+                callback: function (data) {
+                    var txt = "";
+                    for (var i = 0; i < data.length; i++) {
+                        if (guest == "admin") {
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                                <td >
+                                                    <span class="btn Editcss edit"  no="${data[i].No}" data-toggle="modal" data-target="#EditWordShow">修改</span>
+                                                    <span class="btn deletecss delete" no="${data[i].No}">刪除</span>
+                                                </td>
+                                    </tr>`
+                        }
+                        else
+                            txt +=
+                                `<tr>
+                                                <td >${data[i].日文}</td>
+                                                <td >${data[i].中文}</td>
+                                                <td >${data[i].假名}</td>
+                                                <td >${data[i].種類}</td>
+                                        </tr>`
+                    }
+                    $("#WordList").html(txt);
+                }
+            })
+        })
+    </script>
+}
+
+

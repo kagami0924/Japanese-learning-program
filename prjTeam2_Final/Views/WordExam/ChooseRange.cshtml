@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "單字測驗 -";
+}
+<style>
+    .bluebtncss {
+        background-color: #2d3d5a;
+        color:white;
+    }
+    .greenbtncss {
+        background-color: #29925E;
+        color: white;
+    }
+</style>
+<h2 class="pt-5">單字測驗</h2>
+<hr />
+<div class="d-flex justify-content-center">
+    @*範圍選擇*@
+    <div class="pb-5" style="width:200px">
+        <div style="margin-top:4px">
+            <form class="form-horizontal" id="Rangeform">
+                <div class="form-group">
+                    <label class="control-label">難度:</label>
+                    <select name="難度" class="form-control" id="難度">
+                        <option value="全部">全部</option>
+                        <option value="N5">N5</option>
+                        <option value="N4">N4</option>
+                        <option value="N3">N3</option>
+                        <option value="N2">N2</option>
+                        <option value="N1">N1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">種類:</label>
+                    <select name="種類" class="form-control" id="種類">
+                        <option value="全部">全部</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">考法:</label>
+                    <select name="考法" class="form-control" id="考法">
+                        <option value="日翻中">日翻中</option>
+                        <option value="中翻日">中翻日</option>
+                        <option value="假名翻中">假名翻中</option>
+                        <option value="中翻假名">中翻假名</option>
+                    </select>
+                </div>
+            </form>
+            <button class="btn greenbtncss" id="Rangesubmit">開始</button>
+            <button class="btn bluebtncss" onclick="javascript:location.href='https://localhost:44349/WordListN4N3/N4Index'">返回單字表</button>
+            <button id="correctdemo" style="background-color:#F5F8FA" class="mt-1 btn btn-outline-light">Demo</button>
+        </div>
+    </div>
+    @*考試地方*@
+<div style="width:900px;margin-left:20px" id="examarea">
+    <div style="font-size:25px;text-align:center">共做了:<span id="Totalquestions">0</span>題/<span style="color:green">正確:<span id="totalcorrectanswer">0</span>題</span>/<span style="color:red">錯誤:<span id="totalerroranswer">0</span>題</span></div>
+    <table class="table table-striped table-bordered">
+        <thead style="text-align:center">
+            <tr>
+                <th width="50%" id="QuestionTitle">日文/中文/假名</th>
+                <th width="50%" id="spellingTitle">拼字</th>
+            </tr>
+        </thead>
+        <tbody id="topic">
+            <tr>
+                <td id="question" style="text-align:center"></td>
+                <td style="text-align:center">
+                    <input type="text" style="width:500px" id="guestanswer"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <button style="margin-left:10px" class="btn bluebtncss" data-toggle="modal" data-target="#showanswer" id="sendanswer" disabled="disabled">送出</button>
+    </div>
+</div>
+</div>
+
+
+
+@*對答案*@
+<div class="modal" tabindex="-1" role="dialog" id="showanswer" data-backdrop="static" data-keyboard="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">答案</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered">
+                    <thead style="text-align:center">
+                        <tr>
+                            <th id="ShowQuestionTitle">日文/中文/假名</th>
+                            <th>你的答案</th>
+                            <th>正確答案</th>
+                            <th>正確</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topic">
+                        <tr style="text-align:center">
+                            <td id="answer"></td>
+                            <td id="showguestanswer"></td>
+                            <td id="correctanswer" style="background-color:#FFFFCC"></td>
+                            <td><div id="answerimg"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bluebtncss" id="nextquestion" data-dismiss="modal">下一題</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        document.onkeydown = function (e) {
+            if (!e)
+                e = window.event;
+            if ((e.keyCode || e.which) == 13) {
+                document.getElementById("sendanswer").click();                
+            }
+        }
+
+        $("#難度").change(function () {
+            if ($("#難度").val() == "全部")
+            {
+                console.log($("#難度").val())
+                $("#種類").html(`<option value="全部">全部</option>`);  
+                return;
+            }
+            $.ajax({
+                url: "/WordExam/SendRange",
+                type: "POST",
+                data: { "難度": `${$("#難度").val()}` },
+                success: function (data) {
+                    var txt = `<option value="全部">全部</option>`;
+                    for (var i = 0; i < data.length; i++) {
+                        txt +=
+                            `<option value="${data[i].種類}">${data[i].種類}</option>`
+                    }
+                    $("#種類").html(txt);
+                }
+            })
+        })
+        var data_ary = [];
+        //開始測驗
+        $("#Rangesubmit").click(function () {
+            if ($("#question").html != "")
+            {
+                $("#sendanswer").removeAttr("disabled");
+            }
+            $.ajax({
+                url: "/WordExam/GetSpecies",
+                type:"POST",
+                data: { "難度": `${$("#難度").val()}`, "種類": `${$("#種類").val()}`},
+                success(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        data_ary.push(data[i])
+                    }
+                    data_ary.sort(function (a, b)
+                    {
+                        return (0.5 - Math.random())   
+                    })
+                    if ($("#考法").val() == "日翻中")
+                    {
+                        $("#ShowQuestionTitle").text("日文")
+                        $("#QuestionTitle").text("日文")
+                        $("#spellingTitle").text("中文")
+                        $("#question").text(data_ary[0].日文)          //題目
+                        $("#correctanswer").text(data_ary[0].中文)     //正確答案
+                    }
+                    if ($("#考法").val() == "中翻日")
+                    {
+                        $("#ShowQuestionTitle").text("中文")
+                        $("#QuestionTitle").text("中文")
+                        $("#spellingTitle").text("日文")
+                        $("#question").text(data_ary[0].中文)
+                        $("#correctanswer").text(data_ary[0].日文)
+                    }
+                    if ($("#考法").val() == "假名翻中")
+                    {
+                        $("#ShowQuestionTitle").text("假名")
+                        $("#QuestionTitle").text("假名")
+                        $("#spellingTitle").text("中文")
+                        $("#question").text(data_ary[0].假名)
+                        $("#correctanswer").text(data_ary[0].中文)
+                    }
+                    if ($("#考法").val() == "中翻假名")
+                    {
+                        $("#ShowQuestionTitle").text("中文")
+                        $("#QuestionTitle").text("中文")
+                        $("#spellingTitle").text("假名")
+                        $("#question").text(data_ary[0].中文)
+                        $("#correctanswer").text(data_ary[0].假名)
+                    }
+                    
+                }
+            })
+        })
+        //送出
+        $("#sendanswer").click(function () {
+            $("#answer").text($("#question").text())
+            $("#showguestanswer").text($("#guestanswer").val())
+            if ($("#showguestanswer").text() == $("#correctanswer").text())
+            {
+                $("#answerimg").html(`<img src="/imgs/correct.png" />`)
+                $("#correctanswer").css("color", "").css("font-size","16px")
+            }
+            else
+            {
+                $("#answerimg").html(`<img src="/imgs/incorrect.png" />`)
+                $("#correctanswer").css("color", "#990033").css("font-size","20px")
+            }
+        })
+
+
+        //下一題
+        var totalans = 0;
+        var correctans = 0;
+        var errorans = 0;
+        $("#nextquestion").click(function () {
+            //判斷總題數/正確題目/錯誤題目
+            $("#Rangesubmit").click();
+            $("#guestanswer").val("");
+            totalans = totalans + 1;
+            $("#Totalquestions").html(totalans);
+            if ($("#showguestanswer").text() == $("#correctanswer").text())
+            {
+                correctans = correctans + 1;
+                $("#totalcorrectanswer").html(correctans);
+            }
+            else
+            {
+                errorans = errorans + 1;
+                $("#totalerroranswer").html(errorans);
+            }
+        })
+
+
+
+        $("#correctdemo").click(function () {
+            $("#question").html("いぬ")
+            $("#guestanswer").val("狗")
+            $("#correctanswer").html("狗")
+        })
+    </script>
+}

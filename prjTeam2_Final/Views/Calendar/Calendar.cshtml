@@ -1,0 +1,383 @@
+﻿
+@{
+    ViewBag.Title = "活動發起區 -";
+}
+@section style{
+    <style>
+        h2 {
+            margin-top: 30px;
+        }
+    </style>
+}
+<input id="MemberId" type="hidden" value="@ViewBag.MemberId">
+
+<h2>活動發起區</h2>
+<div id="calendar"></div>
+@*修改彈跳視窗*@
+<div id="myModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="Editbtns">
+                    <button id="btnDelete" class="btn btn-danger btn-sm float-right">
+                        刪除
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <button id="btnEdit" class="btn btn-primary btn-sm float-right" style="margin-right:5px;">
+                        修改
+                        <span class="glyphicon glyphicon-pencil"> </span>
+                    </button>
+                </div>
+                <div class="JoinEvent">
+                    <button id="btnAdd" class="btn btn-primary btn-sm float-right" style="margin-right:5px;">
+                        加入
+                        <span class="glyphicon glyphicon-pencil"> </span>
+                    </button>
+                </div>
+
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*新增活動表單*@
+<div id="myModalSave" class="modal" role="dialog" style="overflow: auto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">活動詳細</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="col-md-12 form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>活動名稱：</label>
+                        <input type="text" id="txtSubject" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>活動類型：</label>
+                        <select id="ddThemeType" class="form-control">
+                            <option value="">請選擇</option>
+                            <option value="讀書會">讀書會</option>
+                            <option value="主題交流會">主題交流會</option>
+                            <option value="日語會話交談">日語會話交談</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>開始時間：</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtStart" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>結束時間：</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>活動地點：</label>
+                        <input type="text" id="txtplace" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>活動簡介：</label>
+                        <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>標記顏色</label>
+                        <select id="ddThemeColor" class="form-control">
+                            <option value="">Default</option>
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="black">Black</option>
+                            <option value="green">Green</option>
+                        </select>
+                    </div>
+                    <button type="button" id="btnDemo" class="btn btn-primary">Demo</button>
+                    <button type="button" id="btnSave" class="btn btn-success">儲存</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/Content/fullcalendar-3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar-3.4.0/fullcalendar.print.min.css" rel="stylesheet" media="print" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Content/calendar/moment.min.2.18.1.js"></script>
+    <script src="~/Content/fullcalendar-3.4.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+
+        $('#myModalSave').on("click", "#btnDemo", function () {
+            console.log("xxx");
+            $('#txtSubject').val("魔物獵人同好日文會話會");
+            $('#ddThemeType').val("日語會話交談");
+            $('#txtStart').val("2021/04/15 13:00 PM");
+            $('#txtEnd').val("2021/04/15 17:00 PM");
+            $('#txtplace').val("台北市 大安區 信義路4段1-13號");
+            $('#txtDescription').val("一邊組隊遊玩最新發售的魔物獵人，全程用日文交談，一起增進日文對話能力吧");
+            $('#ddThemeColor').val("blue");
+        })
+
+        $(document).ready(function () {
+            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+
+            var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0]) / 1;
+
+            console.log(NowMember);
+
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/Calendar/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.EventID,
+                                title: v.Title,
+                                type: v.Type,
+                                place: v.Place,
+                                description: v.Description,
+                                start: moment(v.Start),
+                                end: moment(v.end),
+                                color: v.ThemeColor,
+                                creater: v.CreaterID
+                            });
+                        })
+                        //console.log(events);
+                        GenerateCalendar(events);
+                    },
+                    error: function (error) {
+                        Swal.fire('讀取失敗，請稍後再試或連繫專員');
+                    }
+                })
+            }
+            function GenerateCalendar(events) {
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    contentHeight: 500,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    monthNames: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                    monthNamesShort: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                    dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+                    dayNamesShort: ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
+                    firstDay: 1,
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay'
+                    },
+                    buttonText: {
+                        today: '本日',
+                        week: '週',
+                        month: '月',
+                        day: '日'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        console.log(calEvent);
+                        selectedEvent = calEvent;
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html(`<input type="hidden" id="txtEventId" value="${calEvent.eventID}"><b>活動類型：</b>` + calEvent.type));
+                        $description.append($('<p/>').html('<b>開始時間：</b>' + calEvent.start.format("YYYY-MM-DD HH:mm A")));
+                        $description.append($('<p/>').html('<b>結束時間：</b>' + calEvent.end.format("YYYY-MM-DD HH:mm A")));
+                        $description.append($('<p/>').html('<b>活動地點：</b>' + calEvent.place));
+                        $description.append($('<p/>').html('<b>活動簡介：</b>' + calEvent.description));
+                        console.log($description);
+                        $('#myModal #pDetails').empty().html($description);
+                        console.log(NowMember == 0)
+                        console.log(NowMember != calEvent.creater)
+                        if (NowMember == 0 || NowMember != calEvent.creater) {
+                            $('.Editbtns').hide();
+                        }
+                        else {
+                            $('.JoinEvent').hide();
+                        }
+
+                        $('#myModal').modal();
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            place: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            color: ''
+                        };
+                        openAddEditForm();
+                        $('#calendar').fullCalendar('unselect');
+                    },
+                    editable: false, //拖移事件
+                    //eventDrop: function (event) {
+                    //    var data = {
+                    //        EventID: event.eventID,
+                    //        Title: event.title,
+                    //        Place: event.place,
+                    //        Start: event.start.format('YYYY/MM/DD HH:mm A'),
+                    //        End:event.end.format('YYYY/MM/DD HH:mm A'),
+                    //        Description: event.description,
+                    //        ThemeColor: event.color,
+                    //    };
+                    //    SaveEvent(data);
+                    //}
+                })
+            }
+            $('#btnAdd').click(function () {
+                var eid = $("#txtEventId").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Calendar/AddEvent",
+                    data: { "EventID": eid, "MemberID": NowMember },
+                    success: function () {
+                        Swal.fire("成功加入活動")
+                        $('#btnAdd').attr("disabled", "disabled");
+                    }
+                })
+
+            })
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+            $('#btnDelete').click(function () {
+                Swal.fire({
+                    title: '確定刪除活動嗎?',
+                    text: "刪除後無法復原!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            '刪除成功!',
+                            '已刪除此活動',
+                            'success'
+                        )
+                        $.ajax({
+                            type: "POST",
+                            url: '/Calendar/DeleteEvent',
+                            data: { 'eventID': selectedEvent.eventID },
+                            success: function (data) {
+                                if (data.status) {
+                                    //Refresh the calender
+                                    FetchEventAndRenderCalendar();
+                                    $('#myModal').modal('hide');
+                                }
+                            },
+                            error: function () {
+                                Swal.fire('刪除失敗，請洽詢開發人員');
+                            }
+                        })
+                    }
+                })
+            })
+
+
+
+            $('#dtp1,#dtp2').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm A'
+            });
+
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtSubject').val(selectedEvent.title);
+                    $('#ddThemeType').val(selectedEvent.type);
+                    $('#txtStart').val(selectedEvent.start.format('YYYY/MM/DD HH:mm A'));
+                    $('#txtEnd').val(selectedEvent.end.format('YYYY/MM/DD HH:mm A'));
+                    $('#txtplace').val(selectedEvent.place);
+                    $('#txtDescription').val(selectedEvent.description);
+                    $('#ddThemeColor').val(`${selectedEvent.color}`);
+                }
+                $('#myModal').modal('hide');
+                $('#myModalSave').modal();
+            }
+            $('#btnSave').click(function () {
+                //Validation/檢查
+                if ($('#txtSubject').val().trim() == "") {
+                    Swal.fire('請輸入活動標題');
+                    return;
+                }
+                if ($('#txtStart').val().trim() == "") {
+                    Swal.fire('請輸入活動時間');
+                    return;
+                }
+                if (NowMember == 0) {
+                    Swal.fire('請先登入會員');
+                    return;
+                }
+                else {
+                    var startDate = moment($('#txtStart').val(), "YYYY/MM/DD HH:mm A").toDate();
+                    var endDate = moment($('#txtEnd').val(), "YYYY/MM/DD HH:mm A").toDate();
+                    if (startDate > endDate) {
+                        Swal.fire('活動時間有誤');
+                        return;
+                    }
+                }
+
+                var data = {
+                    EventID: $('#hdEventID').val(),
+                    Title: $('#txtSubject').val().trim(),
+                    Start: $('#txtStart').val().trim(),
+                    End: $('#txtEnd').val().trim(),
+                    Place: $('#txtplace').val(),
+                    Type: $('#ddThemeType').val(),
+                    Description: $('#txtDescription').val(),
+                    ThemeColor: $('#ddThemeColor').val(),
+                    CreaterID: NowMember,
+                }
+                SaveEvent(data);
+                // call function for submit data to the server
+            })
+
+            function SaveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '/Calendar/SaveEvent',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            $('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('儲存失敗');
+                    }
+                })
+            }
+
+        })
+    </script>
+
+}

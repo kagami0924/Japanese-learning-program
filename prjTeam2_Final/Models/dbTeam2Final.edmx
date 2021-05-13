@@ -1,0 +1,1202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbTeam2_FinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cGrade">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="測驗時間" Type="nvarchar(max)" />
+          <Property Name="測驗等級" Type="nvarchar(max)" />
+          <Property Name="測驗分數" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Place" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="end" Type="datetime" Nullable="false" />
+          <Property Name="ThemeColor" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreaterID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member_Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="N1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar(max)" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionsA" Type="nvarchar(max)" />
+          <Property Name="OptionsB" Type="nvarchar(max)" />
+          <Property Name="OptionsC" Type="nvarchar(max)" />
+          <Property Name="OptionsD" Type="nvarchar(max)" />
+          <Property Name="Answer" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="N2">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar(max)" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionsA" Type="nvarchar(max)" />
+          <Property Name="OptionsB" Type="nvarchar(max)" />
+          <Property Name="OptionsC" Type="nvarchar(max)" />
+          <Property Name="OptionsD" Type="nvarchar(max)" />
+          <Property Name="Answer" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="N3">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar(max)" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionsA" Type="nvarchar(max)" />
+          <Property Name="OptionsB" Type="nvarchar(max)" />
+          <Property Name="OptionsC" Type="nvarchar(max)" />
+          <Property Name="OptionsD" Type="nvarchar(max)" />
+          <Property Name="Answer" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="N4">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar(max)" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionsA" Type="nvarchar(max)" />
+          <Property Name="OptionsB" Type="nvarchar(max)" />
+          <Property Name="OptionsC" Type="nvarchar(max)" />
+          <Property Name="OptionsD" Type="nvarchar(max)" />
+          <Property Name="Answer" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="N5">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar(max)" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionsA" Type="nvarchar(max)" />
+          <Property Name="OptionsB" Type="nvarchar(max)" />
+          <Property Name="OptionsC" Type="nvarchar(max)" />
+          <Property Name="OptionsD" Type="nvarchar(max)" />
+          <Property Name="Answer" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tArticle">
+          <Key>
+            <PropertyRef Name="ArticleID" />
+          </Key>
+          <Property Name="ArticleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Main" Type="nvarchar(max)" />
+          <Property Name="UpTime" Type="datetime" />
+          <Property Name="LoveCount" Type="int" />
+          <Property Name="ViewCount" Type="int" />
+        </EntityType>
+        <EntityType Name="tArticleLove">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="ArticleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tComment">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="ArticleID" Type="int" />
+          <Property Name="Main" Type="nvarchar(max)" />
+          <Property Name="UpTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tCustomizeTopic">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="Answer" Type="nvarchar(max)" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tLogIORecord">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="fMemberName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fNickname" Type="nvarchar" MaxLength="50" />
+          <Property Name="fLogOnDatetime" Type="datetime" Nullable="false" />
+          <Property Name="fLogOffDatetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tMembers">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fMemberName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fNationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="fAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fVerificationCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="fRegisteredDate" Type="datetime" Nullable="false" />
+          <Property Name="fNickname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fBirthday" Type="date" Nullable="false" />
+          <Property Name="fGender" Type="nvarchar" MaxLength="10" />
+          <Property Name="fLivingArea" Type="nvarchar" MaxLength="50" />
+          <Property Name="fOccupation" Type="nvarchar" MaxLength="50" />
+          <Property Name="fJLPTLevel" Type="nvarchar" MaxLength="50" />
+          <Property Name="fGoal" Type="nvarchar" MaxLength="50" />
+          <Property Name="fIdentity" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fAlive" Type="bit" Nullable="false" />
+          <Property Name="ImgURL" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tNewsCollection">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="NewsTitle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NewsDate" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NewsURL" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tNWord">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="日文" Type="nvarchar" MaxLength="50" />
+          <Property Name="中文" Type="nvarchar" MaxLength="50" />
+          <Property Name="假名" Type="nvarchar" MaxLength="50" />
+          <Property Name="種類" Type="nvarchar" MaxLength="50" />
+          <Property Name="難度" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tPost">
+          <Key>
+            <PropertyRef Name="fPostID" />
+          </Key>
+          <Property Name="fPostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="fPost" Type="nvarchar" MaxLength="50" />
+          <Property Name="fPostDatetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tReArticle">
+          <Key>
+            <PropertyRef Name="ReArticleID" />
+          </Key>
+          <Property Name="ReArticleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArticleID" Type="int" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="Main" Type="nvarchar(max)" />
+          <Property Name="UpTime" Type="datetime" />
+          <Property Name="LoveCount" Type="int" />
+        </EntityType>
+        <EntityType Name="tReArticleLove">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="ReArticleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tReComment">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="ReArticleID" Type="int" />
+          <Property Name="Main" Type="nvarchar(max)" />
+          <Property Name="UpTime" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_tArticle_tMembers">
+          <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
+          <End Role="tArticle" Type="Self.tArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tArticle">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tArticleLove_tArticle">
+          <End Role="tArticle" Type="Self.tArticle" Multiplicity="1" />
+          <End Role="tArticleLove" Type="Self.tArticleLove" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tArticle">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="tArticleLove">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tArticleLove_tMembers">
+          <End Role="tMembers" Type="Self.tMembers" Multiplicity="1" />
+          <End Role="tArticleLove" Type="Self.tArticleLove" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tArticleLove">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tComment_tArticle">
+          <End Role="tArticle" Type="Self.tArticle" Multiplicity="0..1" />
+          <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tArticle">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="tComment">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tComment_tMembers">
+          <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
+          <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tComment">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tLoginRecord_tMembers">
+          <End Role="tMembers" Type="Self.tMembers" Multiplicity="1" />
+          <End Role="tLogIORecord" Type="Self.tLogIORecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tLogIORecord">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReArticle_tArticle">
+          <End Role="tArticle" Type="Self.tArticle" Multiplicity="0..1" />
+          <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tArticle">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="tReArticle">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReArticle_tMembers">
+          <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
+          <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tReArticle">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReArticleLove_tMembers">
+          <End Role="tMembers" Type="Self.tMembers" Multiplicity="1" />
+          <End Role="tReArticleLove" Type="Self.tReArticleLove" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tReArticleLove">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReArticleLove_tReArticle">
+          <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="1" />
+          <End Role="tReArticleLove" Type="Self.tReArticleLove" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tReArticle">
+              <PropertyRef Name="ReArticleID" />
+            </Principal>
+            <Dependent Role="tReArticleLove">
+              <PropertyRef Name="ReArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReComment_tMembers">
+          <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
+          <End Role="tReComment" Type="Self.tReComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tReComment">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReComment_tReArticle">
+          <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="0..1" />
+          <End Role="tReComment" Type="Self.tReComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tReArticle">
+              <PropertyRef Name="ReArticleID" />
+            </Principal>
+            <Dependent Role="tReComment">
+              <PropertyRef Name="ReArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbTeam2_FinalModelStoreContainer">
+          <EntitySet Name="cGrade" EntityType="Self.cGrade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member_Event" EntityType="Self.Member_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="N1" EntityType="Self.N1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="N2" EntityType="Self.N2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="N3" EntityType="Self.N3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="N4" EntityType="Self.N4" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="N5" EntityType="Self.N5" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tArticle" EntityType="Self.tArticle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tArticleLove" EntityType="Self.tArticleLove" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tComment" EntityType="Self.tComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tCustomizeTopic" EntityType="Self.tCustomizeTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tLogIORecord" EntityType="Self.tLogIORecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tMembers" EntityType="Self.tMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tNewsCollection" EntityType="Self.tNewsCollection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tNWord" EntityType="Self.tNWord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tPost" EntityType="Self.tPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tReArticle" EntityType="Self.tReArticle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tReArticleLove" EntityType="Self.tReArticleLove" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tReComment" EntityType="Self.tReComment" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tArticle_tMembers" Association="Self.FK_tArticle_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tArticle" EntitySet="tArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tArticleLove_tArticle" Association="Self.FK_tArticleLove_tArticle">
+            <End Role="tArticle" EntitySet="tArticle" />
+            <End Role="tArticleLove" EntitySet="tArticleLove" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tArticleLove_tMembers" Association="Self.FK_tArticleLove_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tArticleLove" EntitySet="tArticleLove" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tComment_tArticle" Association="Self.FK_tComment_tArticle">
+            <End Role="tArticle" EntitySet="tArticle" />
+            <End Role="tComment" EntitySet="tComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tComment_tMembers" Association="Self.FK_tComment_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tComment" EntitySet="tComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tLoginRecord_tMembers" Association="Self.FK_tLoginRecord_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tLogIORecord" EntitySet="tLogIORecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReArticle_tArticle" Association="Self.FK_tReArticle_tArticle">
+            <End Role="tArticle" EntitySet="tArticle" />
+            <End Role="tReArticle" EntitySet="tReArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReArticle_tMembers" Association="Self.FK_tReArticle_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tReArticle" EntitySet="tReArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReArticleLove_tMembers" Association="Self.FK_tReArticleLove_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tReArticleLove" EntitySet="tReArticleLove" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReArticleLove_tReArticle" Association="Self.FK_tReArticleLove_tReArticle">
+            <End Role="tReArticle" EntitySet="tReArticle" />
+            <End Role="tReArticleLove" EntitySet="tReArticleLove" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReComment_tMembers" Association="Self.FK_tReComment_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tReComment" EntitySet="tReComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReComment_tReArticle" Association="Self.FK_tReComment_tReArticle">
+            <End Role="tReArticle" EntitySet="tReArticle" />
+            <End Role="tReComment" EntitySet="tReComment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbTeam2_FinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dbTeam2_FinalEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="cGrade" EntityType="dbTeam2_FinalModel.cGrade" />
+          <EntitySet Name="Events" EntityType="dbTeam2_FinalModel.Events" />
+          <EntitySet Name="Member_Event" EntityType="dbTeam2_FinalModel.Member_Event" />
+          <EntitySet Name="N1" EntityType="dbTeam2_FinalModel.N1" />
+          <EntitySet Name="N2" EntityType="dbTeam2_FinalModel.N2" />
+          <EntitySet Name="N3" EntityType="dbTeam2_FinalModel.N3" />
+          <EntitySet Name="N4" EntityType="dbTeam2_FinalModel.N4" />
+          <EntitySet Name="N5" EntityType="dbTeam2_FinalModel.N5" />
+          <EntitySet Name="tArticle" EntityType="dbTeam2_FinalModel.tArticle" />
+          <EntitySet Name="tArticleLove" EntityType="dbTeam2_FinalModel.tArticleLove" />
+          <EntitySet Name="tComment" EntityType="dbTeam2_FinalModel.tComment" />
+          <EntitySet Name="tCustomizeTopic" EntityType="dbTeam2_FinalModel.tCustomizeTopic" />
+          <EntitySet Name="tLogIORecord" EntityType="dbTeam2_FinalModel.tLogIORecord" />
+          <EntitySet Name="tMembers" EntityType="dbTeam2_FinalModel.tMembers" />
+          <EntitySet Name="tNewsCollection" EntityType="dbTeam2_FinalModel.tNewsCollection" />
+          <EntitySet Name="tNWord" EntityType="dbTeam2_FinalModel.tNWord" />
+          <EntitySet Name="tPost" EntityType="dbTeam2_FinalModel.tPost" />
+          <EntitySet Name="tReArticle" EntityType="dbTeam2_FinalModel.tReArticle" />
+          <EntitySet Name="tReArticleLove" EntityType="dbTeam2_FinalModel.tReArticleLove" />
+          <EntitySet Name="tReComment" EntityType="dbTeam2_FinalModel.tReComment" />
+          <AssociationSet Name="FK_tArticle_tMembers" Association="dbTeam2_FinalModel.FK_tArticle_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tArticle" EntitySet="tArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tArticleLove_tArticle" Association="dbTeam2_FinalModel.FK_tArticleLove_tArticle">
+            <End Role="tArticle" EntitySet="tArticle" />
+            <End Role="tArticleLove" EntitySet="tArticleLove" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tComment_tArticle" Association="dbTeam2_FinalModel.FK_tComment_tArticle">
+            <End Role="tArticle" EntitySet="tArticle" />
+            <End Role="tComment" EntitySet="tComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReArticle_tArticle" Association="dbTeam2_FinalModel.FK_tReArticle_tArticle">
+            <End Role="tArticle" EntitySet="tArticle" />
+            <End Role="tReArticle" EntitySet="tReArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tArticleLove_tMembers" Association="dbTeam2_FinalModel.FK_tArticleLove_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tArticleLove" EntitySet="tArticleLove" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tComment_tMembers" Association="dbTeam2_FinalModel.FK_tComment_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tComment" EntitySet="tComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tLoginRecord_tMembers" Association="dbTeam2_FinalModel.FK_tLoginRecord_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tLogIORecord" EntitySet="tLogIORecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReArticle_tMembers" Association="dbTeam2_FinalModel.FK_tReArticle_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tReArticle" EntitySet="tReArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReArticleLove_tMembers" Association="dbTeam2_FinalModel.FK_tReArticleLove_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tReArticleLove" EntitySet="tReArticleLove" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReComment_tMembers" Association="dbTeam2_FinalModel.FK_tReComment_tMembers">
+            <End Role="tMembers" EntitySet="tMembers" />
+            <End Role="tReComment" EntitySet="tReComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReArticleLove_tReArticle" Association="dbTeam2_FinalModel.FK_tReArticleLove_tReArticle">
+            <End Role="tReArticle" EntitySet="tReArticle" />
+            <End Role="tReArticleLove" EntitySet="tReArticleLove" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tReComment_tReArticle" Association="dbTeam2_FinalModel.FK_tReComment_tReArticle">
+            <End Role="tReArticle" EntitySet="tReArticle" />
+            <End Role="tReComment" EntitySet="tReComment" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="cGrade">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="測驗時間" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="測驗等級" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="測驗分數" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Place" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ThemeColor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreaterID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member_Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="EventID" Type="Int32" Nullable="false" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="N1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="N2">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="N3">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="N4">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="N5">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tArticle">
+          <Key>
+            <PropertyRef Name="ArticleID" />
+          </Key>
+          <Property Name="ArticleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpTime" Type="DateTime" Precision="3" />
+          <Property Name="LoveCount" Type="Int32" />
+          <Property Name="ViewCount" Type="Int32" />
+          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tArticle_tMembers" FromRole="tArticle" ToRole="tMembers" />
+          <NavigationProperty Name="tArticleLove" Relationship="dbTeam2_FinalModel.FK_tArticleLove_tArticle" FromRole="tArticle" ToRole="tArticleLove" />
+          <NavigationProperty Name="tComment" Relationship="dbTeam2_FinalModel.FK_tComment_tArticle" FromRole="tArticle" ToRole="tComment" />
+          <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReArticle_tArticle" FromRole="tArticle" ToRole="tReArticle" />
+        </EntityType>
+        <EntityType Name="tArticleLove">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="ArticleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tArticle" Relationship="dbTeam2_FinalModel.FK_tArticleLove_tArticle" FromRole="tArticleLove" ToRole="tArticle" />
+          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tArticleLove_tMembers" FromRole="tArticleLove" ToRole="tMembers" />
+        </EntityType>
+        <EntityType Name="tComment">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="ArticleID" Type="Int32" />
+          <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tArticle" Relationship="dbTeam2_FinalModel.FK_tComment_tArticle" FromRole="tComment" ToRole="tArticle" />
+          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tComment_tMembers" FromRole="tComment" ToRole="tMembers" />
+        </EntityType>
+        <EntityType Name="tCustomizeTopic">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tLogIORecord">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="fMemberName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fNickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fLogOnDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fLogOffDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tLoginRecord_tMembers" FromRole="tLogIORecord" ToRole="tMembers" />
+        </EntityType>
+        <EntityType Name="tMembers">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fMemberName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fNationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fAccount" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fVerificationCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="fRegisteredDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fNickname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fBirthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fGender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="fLivingArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fOccupation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fJLPTLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fIdentity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fAlive" Type="Boolean" Nullable="false" />
+          <Property Name="ImgURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tArticle" Relationship="dbTeam2_FinalModel.FK_tArticle_tMembers" FromRole="tMembers" ToRole="tArticle" />
+          <NavigationProperty Name="tArticleLove" Relationship="dbTeam2_FinalModel.FK_tArticleLove_tMembers" FromRole="tMembers" ToRole="tArticleLove" />
+          <NavigationProperty Name="tComment" Relationship="dbTeam2_FinalModel.FK_tComment_tMembers" FromRole="tMembers" ToRole="tComment" />
+          <NavigationProperty Name="tLogIORecord" Relationship="dbTeam2_FinalModel.FK_tLoginRecord_tMembers" FromRole="tMembers" ToRole="tLogIORecord" />
+          <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReArticle_tMembers" FromRole="tMembers" ToRole="tReArticle" />
+          <NavigationProperty Name="tReArticleLove" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tMembers" FromRole="tMembers" ToRole="tReArticleLove" />
+          <NavigationProperty Name="tReComment" Relationship="dbTeam2_FinalModel.FK_tReComment_tMembers" FromRole="tMembers" ToRole="tReComment" />
+        </EntityType>
+        <EntityType Name="tNewsCollection">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="NewsTitle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewsDate" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewsURL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tNWord">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="日文" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="中文" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="假名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="種類" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="難度" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tPost">
+          <Key>
+            <PropertyRef Name="fPostID" />
+          </Key>
+          <Property Name="fPostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="fPost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fPostDatetime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tReArticle">
+          <Key>
+            <PropertyRef Name="ReArticleID" />
+          </Key>
+          <Property Name="ReArticleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleID" Type="Int32" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpTime" Type="DateTime" Precision="3" />
+          <Property Name="LoveCount" Type="Int32" />
+          <NavigationProperty Name="tArticle" Relationship="dbTeam2_FinalModel.FK_tReArticle_tArticle" FromRole="tReArticle" ToRole="tArticle" />
+          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tReArticle_tMembers" FromRole="tReArticle" ToRole="tMembers" />
+          <NavigationProperty Name="tReArticleLove" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tReArticle" FromRole="tReArticle" ToRole="tReArticleLove" />
+          <NavigationProperty Name="tReComment" Relationship="dbTeam2_FinalModel.FK_tReComment_tReArticle" FromRole="tReArticle" ToRole="tReComment" />
+        </EntityType>
+        <EntityType Name="tReArticleLove">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="ReArticleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tMembers" FromRole="tReArticleLove" ToRole="tMembers" />
+          <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tReArticle" FromRole="tReArticleLove" ToRole="tReArticle" />
+        </EntityType>
+        <EntityType Name="tReComment">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="ReArticleID" Type="Int32" />
+          <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tReComment_tMembers" FromRole="tReComment" ToRole="tMembers" />
+          <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReComment_tReArticle" FromRole="tReComment" ToRole="tReArticle" />
+        </EntityType>
+        <Association Name="FK_tArticle_tMembers">
+          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
+          <End Type="dbTeam2_FinalModel.tArticle" Role="tArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tArticle">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tArticleLove_tArticle">
+          <End Type="dbTeam2_FinalModel.tArticle" Role="tArticle" Multiplicity="1" />
+          <End Type="dbTeam2_FinalModel.tArticleLove" Role="tArticleLove" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tArticle">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="tArticleLove">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tComment_tArticle">
+          <End Type="dbTeam2_FinalModel.tArticle" Role="tArticle" Multiplicity="0..1" />
+          <End Type="dbTeam2_FinalModel.tComment" Role="tComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tArticle">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="tComment">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReArticle_tArticle">
+          <End Type="dbTeam2_FinalModel.tArticle" Role="tArticle" Multiplicity="0..1" />
+          <End Type="dbTeam2_FinalModel.tReArticle" Role="tReArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tArticle">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="tReArticle">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tArticleLove_tMembers">
+          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="1" />
+          <End Type="dbTeam2_FinalModel.tArticleLove" Role="tArticleLove" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tArticleLove">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tComment_tMembers">
+          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
+          <End Type="dbTeam2_FinalModel.tComment" Role="tComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tComment">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tLoginRecord_tMembers">
+          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="1" />
+          <End Type="dbTeam2_FinalModel.tLogIORecord" Role="tLogIORecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tLogIORecord">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReArticle_tMembers">
+          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
+          <End Type="dbTeam2_FinalModel.tReArticle" Role="tReArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tReArticle">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReArticleLove_tMembers">
+          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="1" />
+          <End Type="dbTeam2_FinalModel.tReArticleLove" Role="tReArticleLove" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tReArticleLove">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReComment_tMembers">
+          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
+          <End Type="dbTeam2_FinalModel.tReComment" Role="tReComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMembers">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tReComment">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReArticleLove_tReArticle">
+          <End Type="dbTeam2_FinalModel.tReArticle" Role="tReArticle" Multiplicity="1" />
+          <End Type="dbTeam2_FinalModel.tReArticleLove" Role="tReArticleLove" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tReArticle">
+              <PropertyRef Name="ReArticleID" />
+            </Principal>
+            <Dependent Role="tReArticleLove">
+              <PropertyRef Name="ReArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tReComment_tReArticle">
+          <End Type="dbTeam2_FinalModel.tReArticle" Role="tReArticle" Multiplicity="0..1" />
+          <End Type="dbTeam2_FinalModel.tReComment" Role="tReComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tReArticle">
+              <PropertyRef Name="ReArticleID" />
+            </Principal>
+            <Dependent Role="tReComment">
+              <PropertyRef Name="ReArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbTeam2_FinalModelStoreContainer" CdmEntityContainer="dbTeam2_FinalEntities" >
+          <EntitySetMapping Name="cGrade">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.cGrade">
+              <MappingFragment StoreEntitySet="cGrade">
+                <ScalarProperty Name="測驗分數" ColumnName="測驗分數" />
+                <ScalarProperty Name="測驗等級" ColumnName="測驗等級" />
+                <ScalarProperty Name="測驗時間" ColumnName="測驗時間" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="CreaterID" ColumnName="CreaterID" />
+                <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+                <ScalarProperty Name="end" ColumnName="end" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member_Event">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.Member_Event">
+              <MappingFragment StoreEntitySet="Member_Event">
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="N1">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.N1">
+              <MappingFragment StoreEntitySet="N1">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="OptionsD" ColumnName="OptionsD" />
+                <ScalarProperty Name="OptionsC" ColumnName="OptionsC" />
+                <ScalarProperty Name="OptionsB" ColumnName="OptionsB" />
+                <ScalarProperty Name="OptionsA" ColumnName="OptionsA" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="N2">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.N2">
+              <MappingFragment StoreEntitySet="N2">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="OptionsD" ColumnName="OptionsD" />
+                <ScalarProperty Name="OptionsC" ColumnName="OptionsC" />
+                <ScalarProperty Name="OptionsB" ColumnName="OptionsB" />
+                <ScalarProperty Name="OptionsA" ColumnName="OptionsA" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="N3">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.N3">
+              <MappingFragment StoreEntitySet="N3">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="OptionsD" ColumnName="OptionsD" />
+                <ScalarProperty Name="OptionsC" ColumnName="OptionsC" />
+                <ScalarProperty Name="OptionsB" ColumnName="OptionsB" />
+                <ScalarProperty Name="OptionsA" ColumnName="OptionsA" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="N4">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.N4">
+              <MappingFragment StoreEntitySet="N4">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="OptionsD" ColumnName="OptionsD" />
+                <ScalarProperty Name="OptionsC" ColumnName="OptionsC" />
+                <ScalarProperty Name="OptionsB" ColumnName="OptionsB" />
+                <ScalarProperty Name="OptionsA" ColumnName="OptionsA" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="N5">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.N5">
+              <MappingFragment StoreEntitySet="N5">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="OptionsD" ColumnName="OptionsD" />
+                <ScalarProperty Name="OptionsC" ColumnName="OptionsC" />
+                <ScalarProperty Name="OptionsB" ColumnName="OptionsB" />
+                <ScalarProperty Name="OptionsA" ColumnName="OptionsA" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tArticle">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tArticle">
+              <MappingFragment StoreEntitySet="tArticle">
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="LoveCount" ColumnName="LoveCount" />
+                <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+                <ScalarProperty Name="Main" ColumnName="Main" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tArticleLove">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tArticleLove">
+              <MappingFragment StoreEntitySet="tArticleLove">
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tComment">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tComment">
+              <MappingFragment StoreEntitySet="tComment">
+                <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+                <ScalarProperty Name="Main" ColumnName="Main" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tCustomizeTopic">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tCustomizeTopic">
+              <MappingFragment StoreEntitySet="tCustomizeTopic">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="No" ColumnName="No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tLogIORecord">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tLogIORecord">
+              <MappingFragment StoreEntitySet="tLogIORecord">
+                <ScalarProperty Name="fLogOffDatetime" ColumnName="fLogOffDatetime" />
+                <ScalarProperty Name="fLogOnDatetime" ColumnName="fLogOnDatetime" />
+                <ScalarProperty Name="fNickname" ColumnName="fNickname" />
+                <ScalarProperty Name="fMemberName" ColumnName="fMemberName" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="fId" ColumnName="fId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tMembers">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tMembers">
+              <MappingFragment StoreEntitySet="tMembers">
+                <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+                <ScalarProperty Name="fAlive" ColumnName="fAlive" />
+                <ScalarProperty Name="fIdentity" ColumnName="fIdentity" />
+                <ScalarProperty Name="fGoal" ColumnName="fGoal" />
+                <ScalarProperty Name="fJLPTLevel" ColumnName="fJLPTLevel" />
+                <ScalarProperty Name="fOccupation" ColumnName="fOccupation" />
+                <ScalarProperty Name="fLivingArea" ColumnName="fLivingArea" />
+                <ScalarProperty Name="fGender" ColumnName="fGender" />
+                <ScalarProperty Name="fBirthday" ColumnName="fBirthday" />
+                <ScalarProperty Name="fNickname" ColumnName="fNickname" />
+                <ScalarProperty Name="fRegisteredDate" ColumnName="fRegisteredDate" />
+                <ScalarProperty Name="fVerificationCode" ColumnName="fVerificationCode" />
+                <ScalarProperty Name="fPassword" ColumnName="fPassword" />
+                <ScalarProperty Name="fAccount" ColumnName="fAccount" />
+                <ScalarProperty Name="fNationality" ColumnName="fNationality" />
+                <ScalarProperty Name="fMemberName" ColumnName="fMemberName" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tNewsCollection">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tNewsCollection">
+              <MappingFragment StoreEntitySet="tNewsCollection">
+                <ScalarProperty Name="NewsURL" ColumnName="NewsURL" />
+                <ScalarProperty Name="NewsDate" ColumnName="NewsDate" />
+                <ScalarProperty Name="NewsTitle" ColumnName="NewsTitle" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="fId" ColumnName="fId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tNWord">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tNWord">
+              <MappingFragment StoreEntitySet="tNWord">
+                <ScalarProperty Name="難度" ColumnName="難度" />
+                <ScalarProperty Name="種類" ColumnName="種類" />
+                <ScalarProperty Name="假名" ColumnName="假名" />
+                <ScalarProperty Name="中文" ColumnName="中文" />
+                <ScalarProperty Name="日文" ColumnName="日文" />
+                <ScalarProperty Name="No" ColumnName="No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tPost">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tPost">
+              <MappingFragment StoreEntitySet="tPost">
+                <ScalarProperty Name="fPostDatetime" ColumnName="fPostDatetime" />
+                <ScalarProperty Name="fPost" ColumnName="fPost" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="fPostID" ColumnName="fPostID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tReArticle">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tReArticle">
+              <MappingFragment StoreEntitySet="tReArticle">
+                <ScalarProperty Name="LoveCount" ColumnName="LoveCount" />
+                <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+                <ScalarProperty Name="Main" ColumnName="Main" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="ReArticleID" ColumnName="ReArticleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tReArticleLove">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tReArticleLove">
+              <MappingFragment StoreEntitySet="tReArticleLove">
+                <ScalarProperty Name="ReArticleID" ColumnName="ReArticleID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tReComment">
+            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tReComment">
+              <MappingFragment StoreEntitySet="tReComment">
+                <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+                <ScalarProperty Name="Main" ColumnName="Main" />
+                <ScalarProperty Name="ReArticleID" ColumnName="ReArticleID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
